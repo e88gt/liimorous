@@ -14,9 +14,9 @@ public class Window
 	public static final Window WINDOW = new Window("liimorous v0");
 	
 	private final String title;
-	private long window;
+	private long handle;
 	
-	public Window(String title)
+	private Window(String title)
 	{
 		init();
 		this.title = title;
@@ -25,8 +25,9 @@ public class Window
 	public void create()
 	{
 		windowHints();
-		window = createWindow(title);
+		handle = createWindow(title);
 		centerWindow();
+		glfwMakeContextCurrent(handle);
 	}
 	
 	public void pollEvents()
@@ -36,20 +37,20 @@ public class Window
 	
 	public void swapBuffers()
 	{
-		glfwSwapBuffers(window);
+		glfwSwapBuffers(handle);
 	}
 	
 	public void destroy()
 	{
-		glfwFreeCallbacks(window);
-		glfwDestroyWindow(window);
+		glfwFreeCallbacks(handle);
+		glfwDestroyWindow(handle);
 		glfwTerminate();
 		glfwSetErrorCallback(null).free();
 	}
 	
 	public boolean shouldClose()
 	{
-		return glfwWindowShouldClose(window);
+		return glfwWindowShouldClose(handle);
 	}
 	
 	private static void init()
@@ -99,8 +100,7 @@ public class Window
 		final int x = (vidMode.width() - WIDTH) / 2;
 		final int y = (vidMode.height() - HEIGHT) / 2;
 		
-		glfwSetWindowPos(window, x, y);
-		glfwShowWindow(window);
-		glfwMakeContextCurrent(window);
+		glfwSetWindowPos(handle, x, y);
+		glfwShowWindow(handle);
 	}
 }
