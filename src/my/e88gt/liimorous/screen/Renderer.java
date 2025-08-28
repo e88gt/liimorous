@@ -8,15 +8,13 @@ import my.e88gt.liimorous.scene.*;
 
 public class Renderer
 {
-	public static final Renderer RENDERER = new Renderer();
-	
 	private Renderer()
 	{
+		GL.createCapabilities();
 	}
 	
 	public void create()
 	{
-		GL.createCapabilities();
 	}
 	
 	public void clear()

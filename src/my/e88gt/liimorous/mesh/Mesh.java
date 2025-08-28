@@ -30,12 +30,11 @@ public class Mesh implements Renderable
 		vbo = new VertexBuffer(VertexBuffer.ARRAY);
 		vao = new VertexArray();
 		
-		vao.bind();
-		ebo.data(indices);
-		vbo.data(vertices);
-		
 		vao.attribute(vbo, 0, 3, 20, 0);
 		vao.attribute(vbo, 1, 2, 20, 12);
+		
+		ebo.data(indices);
+		vbo.data(vertices);
 	}
 	
 	public void destroy()

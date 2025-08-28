@@ -20,6 +20,7 @@ public class VertexArray
 	
 	public void attribute(VertexBuffer vbo, int location, int size, int stride, long offset)
 	{
+		bind();
 		vbo.bind();
 		glVertexAttribPointer(location, size, GL_FLOAT, false, stride, offset);
 		glEnableVertexAttribArray(location);

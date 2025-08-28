@@ -6,28 +6,21 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 import org.lwjgl.glfw.*;
+import org.lwjgl.opengl.*;
 
 public class Window
 {
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 720;
-	public static final Window WINDOW = new Window("liimorous v0");
 	
-	private final String title;
 	private long handle;
 	
 	private Window(String title)
 	{
 		init();
-		this.title = title;
-	}
-	
-	public void create()
-	{
 		windowHints();
 		handle = createWindow(title);
 		centerWindow();
-		glfwMakeContextCurrent(handle);
 	}
 	
 	public void pollEvents()
@@ -102,5 +95,6 @@ public class Window
 		
 		glfwSetWindowPos(handle, x, y);
 		glfwShowWindow(handle);
+		glfwMakeContextCurrent(handle);
 	}
 }
