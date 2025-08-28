@@ -6,26 +6,48 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 import org.lwjgl.glfw.*;
-import org.lwjgl.opengl.*;
 
 public class Window
 {
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 720;
 	
-	private long handle;
+	private int width = WIDTH, height = HEIGHT;
+	private final long handle;
 	
-	private Window(String title)
+	public Window()
+	{
+		this("", WIDTH, HEIGHT, false);
+	}
+	
+	public Window(String title, int width, int height, boolean vsync)
 	{
 		init();
+		
+		this.width = Math.max(width, 1);
+		this.height = Math.max(height, 1);
+		
 		windowHints();
+		
 		handle = createWindow(title);
+		
 		centerWindow();
+		makeContext(vsync);
 	}
 	
 	public void pollEvents()
 	{
 		glfwPollEvents();
+	}
+	
+	public void timeEvents(double seconds)
+	{
+		glfwWaitEventsTimeout(seconds);
+	}
+	
+	public void waitEvents()
+	{
+		glfwWaitEvents();
 	}
 	
 	public void swapBuffers()
@@ -46,20 +68,20 @@ public class Window
 		return glfwWindowShouldClose(handle);
 	}
 	
-	private static void init()
+	private void init()
 	{
-		glfwSetErrorCallback(Window::errorCallback);
+		glfwSetErrorCallback(this::errorCallback);
 		
 		if (!glfwInit())
 			throw new IllegalStateException("Failed to initialize window");
 	}
 	
-	private static void errorCallback(int code, long description)
+	private void errorCallback(int code, long description)
 	{
 		throw new IllegalStateException(GLFWErrorCallback.getDescription(description));
 	}
 	
-	private static void windowHints()
+	private void windowHints()
 	{
 		glfwDefaultWindowHints();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -68,13 +90,19 @@ public class Window
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
 		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
 		glfwWindowHint(GLFW_MAXIMIZED, GLFW_FALSE);
-		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+		
+		if (width == 1 || height == 1)
+		{
+			glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
+			glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
+		}
 	}
 	
-	private static long createWindow(String title)
+	private long createWindow(String title)
 	{
-		final long window = glfwCreateWindow(WIDTH, HEIGHT, title == null ? "" : title, NULL, NULL);
+		final long window = glfwCreateWindow(width, height, title == null ? "" : title, NULL, NULL);
 		
 		if (window == NULL)
 			throw new IllegalStateException("Failed to create window");
@@ -84,6 +112,9 @@ public class Window
 	
 	private void centerWindow()
 	{
+		if (width == 1 || height == 1)
+			return;
+		
 		final long primaryMonitor = glfwGetPrimaryMonitor();
 		final GLFWVidMode vidMode = glfwGetVideoMode(primaryMonitor);
 		
@@ -95,6 +126,11 @@ public class Window
 		
 		glfwSetWindowPos(handle, x, y);
 		glfwShowWindow(handle);
+	}
+	
+	private void makeContext(boolean vsync)
+	{
 		glfwMakeContextCurrent(handle);
+		glfwSwapInterval(vsync ? GLFW_TRUE : GLFW_FALSE);
 	}
 }
