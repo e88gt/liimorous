@@ -1,5 +1,7 @@
 package my.e88gt.liimorous.shader;
 
+import static org.lwjgl.opengl.GL13.*;
+
 import java.io.*;
 
 import my.e88gt.liimorous.utils.*;
@@ -41,6 +43,19 @@ public final class CoreShader
 	public void use()
 	{
 		program.use();
+	}
+	
+	public void useColor(float red, float green, float blue)
+	{
+		program.uniformBool(2, false);
+		program.uniformVec3(3, red, green, blue);
+	}
+	
+	public void useTexture(int texture)
+	{
+		program.uniformBool(2, true);
+		program.uniformInt(4, texture);
+		glActiveTexture(GL_TEXTURE0 + texture);
 	}
 	
 	public void delete()

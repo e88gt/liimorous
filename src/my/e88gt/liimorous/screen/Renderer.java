@@ -6,12 +6,11 @@ import org.joml.*;
 import org.lwjgl.opengl.*;
 
 import my.e88gt.liimorous.shader.*;
+import my.e88gt.liimorous.texture.*;
 
 public final class Renderer
 {
-	private int width = Window.DEFAULT_WIDTH;
-	private int height = Window.DEFAULT_HEIGHT;
-	
+	private final Vector2i size = new Vector2i(Window.DEFAULT_WIDTH, Window.DEFAULT_HEIGHT);
 	private final Vector3f color = new Vector3f(0);
 	private final CoreShader shader;
 	
@@ -23,11 +22,10 @@ public final class Renderer
 	
 	public void viewport(int width, int height)
 	{
-		if (this.width == width && this.height == height)
+		if (size.x == width && size.y == height)
 			return;
 		
-		this.width = width;
-		this.height = height;
+		size.set(width, height);
 		glViewport(0, 0, width, height);
 	}
 	
@@ -45,9 +43,11 @@ public final class Renderer
 		glClearColor(r, g, b, 1);
 	}
 	
-	public void render(Renderable r)
+	public void render(Renderable r, Texture texture)
 	{
 		shader.use();
+		shader.useTexture(0);
+		texture.bind();
 		r.getVertexArray().bind();
 		glDrawElements(GL_TRIANGLES, r.getElementCount(), GL_UNSIGNED_INT, 0);
 	}

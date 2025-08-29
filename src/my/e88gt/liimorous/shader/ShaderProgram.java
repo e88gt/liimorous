@@ -6,6 +6,7 @@ import java.util.*;
 
 public final class ShaderProgram
 {
+	private boolean using;
 	private final int handle;
 	private List<Shader> shaders = new ArrayList<>();
 	
@@ -31,6 +32,24 @@ public final class ShaderProgram
 	public void use()
 	{
 		glUseProgram(handle);
+	}
+	
+	public void uniformBool(int location, boolean value)
+	{
+		use();
+		glUniform1i(location, value ? GL_TRUE : GL_FALSE);
+	}
+	
+	public void uniformInt(int location, int value)
+	{
+		use();
+		glUniform1i(location, value);
+	}
+	
+	public void uniformVec3(int location, float r, float g, float b)
+	{
+		use();
+		glUniform3f(location, r, g, b);
 	}
 	
 	public void delete()
