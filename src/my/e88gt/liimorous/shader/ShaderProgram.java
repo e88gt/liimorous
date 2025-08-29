@@ -1,12 +1,16 @@
 package my.e88gt.liimorous.shader;
 
-import static org.lwjgl.opengl.GL46.*;
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL20.*;
 
+import java.nio.*;
 import java.util.*;
+
+import org.joml.*;
+import org.lwjgl.system.*;
 
 public final class ShaderProgram
 {
-	private boolean using;
 	private final int handle;
 	private List<Shader> shaders = new ArrayList<>();
 	
@@ -36,20 +40,24 @@ public final class ShaderProgram
 	
 	public void uniformBool(int location, boolean value)
 	{
-		use();
 		glUniform1i(location, value ? GL_TRUE : GL_FALSE);
 	}
 	
 	public void uniformInt(int location, int value)
 	{
-		use();
 		glUniform1i(location, value);
 	}
 	
 	public void uniformVec3(int location, float r, float g, float b)
 	{
-		use();
 		glUniform3f(location, r, g, b);
+	}
+	
+	public void uniformMat4(int location, Matrix4f matrix)
+	{
+		FloatBuffer buffer = MemoryUtil.memCallocFloat(16);
+		glUniformMatrix4fv(location, false, buffer);
+		MemoryUtil.memFree(buffer);
 	}
 	
 	public void delete()

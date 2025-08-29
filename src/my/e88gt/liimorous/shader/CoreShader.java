@@ -47,12 +47,14 @@ public final class CoreShader
 	
 	public void useColor(float red, float green, float blue)
 	{
+		use();
 		program.uniformBool(2, false);
 		program.uniformVec3(3, red, green, blue);
 	}
 	
 	public void useTexture(int texture)
 	{
+		use();
 		program.uniformBool(2, true);
 		program.uniformInt(4, texture);
 		glActiveTexture(GL_TEXTURE0 + texture);
