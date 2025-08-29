@@ -1,10 +1,9 @@
-
 package my.e88gt.liimorous.mesh;
 
 import my.e88gt.liimorous.graphics.*;
 import my.e88gt.liimorous.screen.*;
 
-public class Mesh implements Renderable
+public final class Mesh implements Renderable
 {
 	public static final Mesh PLANE = new Mesh(new float[]
 	{

@@ -2,12 +2,13 @@
 package my.e88gt.liimorous.graphics;
 
 import static org.lwjgl.opengl.GL46.*;
+import static org.lwjgl.system.MemoryUtil.*;
 
 import java.nio.*;
 
 import org.lwjgl.system.*;
 
-public class VertexBuffer
+public final class VertexBuffer
 {
 	public static final int ARRAY = GL_ARRAY_BUFFER;
 	public static final int ELEMENT_ARRAY = GL_ELEMENT_ARRAY_BUFFER;
@@ -17,7 +18,11 @@ public class VertexBuffer
 	public VertexBuffer(int type)
 	{
 		this.type = type;
+		
 		handle = glGenBuffers();
+		
+		if (handle == NULL)
+			throw new IllegalStateException("Failed to create buffer");
 	}
 	
 	public void bind()
@@ -25,7 +30,7 @@ public class VertexBuffer
 		glBindBuffer(type, handle);
 	}
 	
-	public void data(float[]data)
+	public void data(float[] data)
 	{
 		FloatBuffer buffer = MemoryUtil.memCallocFloat(data.length).put(data).flip();
 		
@@ -35,7 +40,7 @@ public class VertexBuffer
 		MemoryUtil.memFree(buffer);
 	}
 	
-	public void data(int[]data)
+	public void data(int[] data)
 	{
 		IntBuffer buffer = MemoryUtil.memCallocInt(data.length).put(data).flip();
 		

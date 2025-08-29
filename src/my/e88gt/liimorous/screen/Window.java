@@ -10,7 +10,7 @@ import org.lwjgl.glfw.*;
 /**
  * the window class
  */
-public class Window
+public final class Window
 {
 	/**
 	 * the default width for window when the window is created
@@ -23,6 +23,11 @@ public class Window
 	 * using the {@link #Window()} constructor
 	 */
 	public static final int DEFAULT_HEIGHT = 720;
+	
+	/**
+	 * whether the window has been resized or not
+	 */
+	private boolean resized;
 	
 	/**
 	 * the size of the window
@@ -152,6 +157,23 @@ public class Window
 	}
 	
 	/**
+	 * checks if the window is resized or not
+	 * 
+	 * @return
+	 * true if the window is resized<br>
+	 * false if the window was not resized<br>
+	 */
+	public boolean isResized()
+	{
+		if(resized) {
+			resized = false;
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
 	 * gets the width of the frame buffer
 	 * 
 	 * @return (int) the width of the frame buffer
@@ -238,7 +260,23 @@ public class Window
 	 */
 	private void windowCallbacks()
 	{
+		glfwSetWindowSizeCallback(handle, this::sizeCallback);
 		glfwSetFramebufferSizeCallback(handle, this::fbSizeCallback);
+	}
+	
+	/**
+	 * the window size callback
+	 * 
+	 * @param window the address of the window<br><br>
+	 * @param width the width of the window<br><br>
+	 * @param height the height of the window<br><br>
+	 */
+	private void sizeCallback(long window, int width, int height)
+	{
+		resized = true;
+		
+		this.width = width;
+		this.height = height;
 	}
 	
 	/**

@@ -1,6 +1,6 @@
 package my.e88gt.liimorous.utils;
 
-public class Time
+public final class Time
 {
 	public static final int NS_PER_SEC = 1_000_000_000;
 	

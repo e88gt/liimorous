@@ -1,16 +1,18 @@
 package my.e88gt.liimorous.graphics;
 
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
+import static org.lwjgl.system.MemoryUtil.*;
 
-public class VertexArray
+public final class VertexArray
 {
 	private final int handle;
 	
 	public VertexArray()
 	{
 		handle = glGenVertexArrays();
+		
+		if (handle == NULL)
+			throw new IllegalStateException("Failed to create vertex array");
 	}
 	
 	public void bind()
