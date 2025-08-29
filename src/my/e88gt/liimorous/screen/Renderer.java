@@ -1,6 +1,9 @@
 package my.e88gt.liimorous.screen;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL43.*;
+
+import java.nio.*;
 
 import org.joml.*;
 import org.lwjgl.opengl.*;
@@ -17,6 +20,14 @@ public final class Renderer
 	public Renderer()
 	{
 		GL.createCapabilities();
+		
+		glEnable(GL_DEBUG_OUTPUT);
+		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+		glDebugMessageCallback(this::debugCallback, 0);
+		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, (IntBuffer) null, true);
+		
+		glEnable(GL_DEPTH_TEST);
+		
 		shader = new CoreShader(CoreShader.FOLDER_PATH + "vertex_shader.glsl", CoreShader.FOLDER_PATH + "fragment_shader.glsl");
 	}
 	
@@ -31,7 +42,7 @@ public final class Renderer
 	
 	public void clear()
 	{
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 	
 	public void clearColor(float r, float g, float b)
@@ -56,5 +67,10 @@ public final class Renderer
 	{
 		shader.delete();
 		GL.destroy();
+	}
+	
+	private void debugCallback(int source, int type, int id, int severity, int length, long message, long userParameter)
+	{
+		throw new IllegalStateException(GLDebugMessageCallback.getMessage(length, message));
 	}
 }
