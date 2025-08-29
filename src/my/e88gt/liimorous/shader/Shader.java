@@ -18,36 +18,36 @@ public final class Shader
 		}
 	}
 	
-	private final int handle;
+	private final int shader;
 	
 	public Shader(Type type)
 	{
-		handle = glCreateShader(type.handle);
+		shader = glCreateShader(type.handle);
 		
-		if (handle == NULL)
+		if (shader == NULL)
 			throw new IllegalStateException("Failed to create " + type + " shader");
 	}
 	
 	public void shaderSource(String source)
 	{
-		glShaderSource(handle, source);
+		glShaderSource(shader, source);
 	}
 	
 	public void compile()
 	{
-		glCompileShader(handle);
+		glCompileShader(shader);
 		
-		if (glGetShaderi(handle, GL_COMPILE_STATUS) == GL_FALSE)
-			throw new IllegalStateException(glGetShaderInfoLog(handle));
+		if (glGetShaderi(shader, GL_COMPILE_STATUS) == GL_FALSE)
+			throw new IllegalStateException(glGetShaderInfoLog(shader));
 	}
 	
 	public void delete()
 	{
-		glDeleteShader(handle);
+		glDeleteShader(shader);
 	}
 	
 	public int getHandle()
 	{
-		return handle;
+		return shader;
 	}
 }

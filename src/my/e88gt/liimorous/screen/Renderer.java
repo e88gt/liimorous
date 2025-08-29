@@ -25,6 +25,8 @@ public final class Renderer
 		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 		glDebugMessageCallback(this::debugCallback, 0);
 		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, (IntBuffer) null, true);
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
 		
 		glEnable(GL_DEPTH_TEST);
 		
@@ -71,6 +73,6 @@ public final class Renderer
 	
 	private void debugCallback(int source, int type, int id, int severity, int length, long message, long userParameter)
 	{
-		throw new IllegalStateException(GLDebugMessageCallback.getMessage(length, message));
+		System.err.println(GLDebugMessageCallback.getMessage(length, message));
 	}
 }

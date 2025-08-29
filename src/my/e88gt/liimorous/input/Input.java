@@ -4,6 +4,9 @@ import static org.lwjgl.glfw.GLFW.*;
 
 import my.e88gt.liimorous.screen.*;
 
+/**
+ * 
+ */
 public interface Input
 {
 	public static enum Action {

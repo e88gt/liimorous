@@ -7,6 +7,9 @@ import my.e88gt.liimorous.mesh.*;
 import my.e88gt.liimorous.screen.*;
 import my.e88gt.liimorous.texture.*;
 
+/**
+ * the structure of the game itself
+ */
 public final class Game
 {
 	final Mesh mesh;

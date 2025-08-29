@@ -25,8 +25,8 @@ public final class Mesh implements Renderable
 	{
 		elementCount = indices.length;
 		
-		ebo = new VertexBuffer(VertexBuffer.ELEMENT_ARRAY);
-		vbo = new VertexBuffer(VertexBuffer.ARRAY);
+		ebo = new VertexBuffer(VertexBuffer.Type.ELEMENT_ARRAY);
+		vbo = new VertexBuffer(VertexBuffer.Type.ARRAY);
 		vao = new VertexArray();
 		
 		vao.attribute(vbo, 0, 3, 20, 0);

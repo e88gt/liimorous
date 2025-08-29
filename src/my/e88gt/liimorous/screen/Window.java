@@ -42,7 +42,7 @@ public final class Window
 	/**
 	 * the memory address for the window
 	 */
-	private final long handle;
+	private final long window;
 	
 	/**
 	 * window constructor that calls the {@link #Window(String, int, int, boolean)}
@@ -82,7 +82,7 @@ public final class Window
 		
 		windowHints();
 		
-		handle = createWindow(title);
+		window = createWindow(title);
 		
 		windowCallbacks();
 		centerWindow();
@@ -129,7 +129,7 @@ public final class Window
 	 */
 	public void swapBuffers()
 	{
-		glfwSwapBuffers(handle);
+		glfwSwapBuffers(window);
 	}
 	
 	/**
@@ -138,8 +138,8 @@ public final class Window
 	 */
 	public void destroy()
 	{
-		glfwFreeCallbacks(handle);
-		glfwDestroyWindow(handle);
+		glfwFreeCallbacks(window);
+		glfwDestroyWindow(window);
 		glfwTerminate();
 		glfwSetErrorCallback(null).free();
 	}
@@ -153,7 +153,7 @@ public final class Window
 	 */
 	public boolean shouldClose()
 	{
-		return glfwWindowShouldClose(handle);
+		return glfwWindowShouldClose(window);
 	}
 	
 	/**
@@ -243,7 +243,7 @@ public final class Window
 	 * 
 	 * @param title the title of the window, that can be null<br><br>
 	 * @return the address of the window<br><br>
-	 * @throws IllegalStateException if the {@link #handle} is {@link MemoryUtil#NULL}<br><br>
+	 * @throws IllegalStateException if the {@link #window} is {@link MemoryUtil#NULL}<br><br>
 	 */
 	private long createWindow(String title) throws IllegalStateException
 	{
@@ -260,8 +260,8 @@ public final class Window
 	 */
 	private void windowCallbacks()
 	{
-		glfwSetWindowSizeCallback(handle, this::sizeCallback);
-		glfwSetFramebufferSizeCallback(handle, this::fbSizeCallback);
+		glfwSetWindowSizeCallback(window, this::sizeCallback);
+		glfwSetFramebufferSizeCallback(window, this::fbSizeCallback);
 	}
 	
 	/**
@@ -312,8 +312,8 @@ public final class Window
 		final int x = (vidMode.width() - width) / 2;
 		final int y = (vidMode.height() - height) / 2;
 		
-		glfwSetWindowPos(handle, x, y);
-		glfwShowWindow(handle);
+		glfwSetWindowPos(window, x, y);
+		glfwShowWindow(window);
 	}
 	
 	/**
@@ -323,7 +323,7 @@ public final class Window
 	 */
 	private void makeContext(boolean vsync)
 	{
-		glfwMakeContextCurrent(handle);
+		glfwMakeContextCurrent(window);
 		glfwSwapInterval(vsync ? GLFW_TRUE : GLFW_FALSE);
 	}
 }

@@ -11,31 +11,31 @@ import org.lwjgl.system.*;
 
 public final class ShaderProgram
 {
-	private final int handle;
+	private final int program;
 	private List<Shader> shaders = new ArrayList<>();
 	
 	public ShaderProgram()
 	{
-		handle = glCreateProgram();
+		program = glCreateProgram();
 	}
 	
 	public void attachShader(Shader shader)
 	{
 		shaders.add(shader);
-		glAttachShader(handle, shader.getHandle());
+		glAttachShader(program, shader.getHandle());
 	}
 	
 	public void link()
 	{
-		glLinkProgram(handle);
+		glLinkProgram(program);
 		
-		if (glGetProgrami(handle, GL_LINK_STATUS) == GL_FALSE)
-			throw new IllegalStateException(glGetShaderInfoLog(handle));
+		if (glGetProgrami(program, GL_LINK_STATUS) == GL_FALSE)
+			throw new IllegalStateException(glGetShaderInfoLog(program));
 	}
 	
 	public void use()
 	{
-		glUseProgram(handle);
+		glUseProgram(program);
 	}
 	
 	public void uniformBool(int location, boolean value)
@@ -66,6 +66,6 @@ public final class ShaderProgram
 	
 	public void delete()
 	{
-		glDeleteProgram(handle);
+		glDeleteProgram(program);
 	}
 }

@@ -64,6 +64,12 @@ public class Texture
 		glBindTexture(GL_TEXTURE_2D, texture);
 	}
 	
+	public void useAA(boolean use)
+	{
+		final int aa = (use) ? GL_LINEAR : GL_NEAREST;
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, aa);
+	}
+	
 	public void delete()
 	{
 		glDeleteTextures(texture);
