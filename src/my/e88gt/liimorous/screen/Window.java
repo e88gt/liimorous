@@ -12,7 +12,7 @@ public class Window
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 720;
 	
-	private int width = WIDTH, height = HEIGHT;
+	private int width = 1, height = 1;
 	private final long handle;
 	
 	public Window()
@@ -121,8 +121,8 @@ public class Window
 		if (vidMode == null)
 			return;
 		
-		final int x = (vidMode.width() - WIDTH) / 2;
-		final int y = (vidMode.height() - HEIGHT) / 2;
+		final int x = (vidMode.width() - width) / 2;
+		final int y = (vidMode.height() - height) / 2;
 		
 		glfwSetWindowPos(handle, x, y);
 		glfwShowWindow(handle);

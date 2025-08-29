@@ -12,6 +12,11 @@ public enum Launcher
 		engine.run();
 	}
 	
+	public Engine getEngine()
+	{
+		return engine;
+	}
+	
 	public static void main(String... args)
 	{
 		Launcher _ = Launcher.LAUNCH;
