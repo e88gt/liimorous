@@ -40,21 +40,25 @@ public final class ShaderProgram
 	
 	public void uniformBool(int location, boolean value)
 	{
+		use();
 		glUniform1i(location, value ? GL_TRUE : GL_FALSE);
 	}
 	
 	public void uniformInt(int location, int value)
 	{
+		use();
 		glUniform1i(location, value);
 	}
 	
 	public void uniformVec3(int location, float r, float g, float b)
 	{
+		use();
 		glUniform3f(location, r, g, b);
 	}
 	
 	public void uniformMat4(int location, Matrix4f matrix)
 	{
+		use();
 		FloatBuffer buffer = MemoryUtil.memCallocFloat(16);
 		glUniformMatrix4fv(location, false, buffer);
 		MemoryUtil.memFree(buffer);
