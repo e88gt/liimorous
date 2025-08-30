@@ -184,6 +184,15 @@ public final class Window
 	}
 	
 	/**
+	 * gets the address of the window in long
+	 * @return (long) the address of the window
+	 */
+	public long getAddress()
+	{
+		return window;
+	}
+	
+	/**
 	 * gets the height of the frame buffer
 	 * 
 	 * @return (int) the height of the frame buffer

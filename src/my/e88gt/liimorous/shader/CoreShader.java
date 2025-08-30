@@ -4,6 +4,8 @@ import static org.lwjgl.opengl.GL13.*;
 
 import java.io.*;
 
+import org.joml.*;
+
 import my.e88gt.liimorous.utils.*;
 
 public final class CoreShader
@@ -45,19 +47,15 @@ public final class CoreShader
 		program.use();
 	}
 	
-	public void useColor(float red, float green, float blue)
-	{
-		use();
-		program.uniformBool(2, false);
-		program.uniformVec3(3, red, green, blue);
-	}
-	
 	public void useTexture(int texture)
 	{
-		use();
-		program.uniformBool(2, true);
-		program.uniformInt(4, texture);
+		program.uniformInt(2, texture);
 		glActiveTexture(GL_TEXTURE0 + texture);
+	}
+	
+	public void worldMatrix(Matrix4f world)
+	{
+		program.uniformMat4(3, world);
 	}
 	
 	public void delete()
@@ -65,5 +63,10 @@ public final class CoreShader
 		vertex.delete();
 		fragment.delete();
 		program.delete();
+	}
+	
+	public int getProgram()
+	{
+		return program.getID();
 	}
 }

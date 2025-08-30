@@ -8,8 +8,8 @@ import java.nio.*;
 import org.joml.*;
 import org.lwjgl.opengl.*;
 
+import my.e88gt.liimorous.mob.*;
 import my.e88gt.liimorous.shader.*;
-import my.e88gt.liimorous.texture.*;
 
 public final class Renderer
 {
@@ -25,10 +25,9 @@ public final class Renderer
 		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 		glDebugMessageCallback(this::debugCallback, 0);
 		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, (IntBuffer) null, true);
+		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
-		
-		glEnable(GL_DEPTH_TEST);
 		
 		shader = new CoreShader(CoreShader.FOLDER_PATH + "vertex_shader.glsl", CoreShader.FOLDER_PATH + "fragment_shader.glsl");
 	}
@@ -56,13 +55,16 @@ public final class Renderer
 		glClearColor(r, g, b, 1);
 	}
 	
-	public void render(Renderable r, Texture texture)
+	public void render(Mob mob)
 	{
 		shader.use();
 		shader.useTexture(0);
-		texture.bind();
-		r.getVertexArray().bind();
-		glDrawElements(GL_TRIANGLES, r.getElementCount(), GL_UNSIGNED_INT, 0);
+		
+		shader.worldMatrix(mob.getTransformation());
+		
+		mob.getTexture().bind();
+		mob.getMesh().getVertexArray().bind();
+		glDrawElements(GL_TRIANGLES, mob.getMesh().getElementCount(), GL_UNSIGNED_INT, 0);
 	}
 	
 	public void destroy()
@@ -73,6 +75,41 @@ public final class Renderer
 	
 	private void debugCallback(int source, int type, int id, int severity, int length, long message, long userParameter)
 	{
-		System.err.println(GLDebugMessageCallback.getMessage(length, message));
+		String sSource = stringDebugGL(source);
+		String sType = stringDebugGL(type).toLowerCase();
+		String sSeverity = stringDebugGL(severity);
+		
+		System.err.println("- " + sSeverity + " " + sType + " from: " + sSource);
+		System.err.println(GLDebugMessageCallback.getMessage(length, message) + "\n");
+	}
+	
+	private String stringDebugGL(int theEnum)
+	{
+		return switch (theEnum)
+		{
+		case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR -> "Deprecated behavior";
+		case GL_DEBUG_TYPE_ERROR -> "Error";
+		case GL_DEBUG_TYPE_MARKER -> "Marker";
+		case GL_DEBUG_TYPE_OTHER -> "Other";
+		case GL_DEBUG_TYPE_PERFORMANCE -> "Performance";
+		case GL_DEBUG_TYPE_POP_GROUP -> "Pop group";
+		case GL_DEBUG_TYPE_PORTABILITY -> "Portability";
+		case GL_DEBUG_TYPE_PUSH_GROUP -> "Push group";
+		case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR -> "Undefined behavior";
+	
+		case GL_DEBUG_SOURCE_API -> "API";
+		case GL_DEBUG_SOURCE_APPLICATION -> "Application";
+		case GL_DEBUG_SOURCE_OTHER -> "Other";
+		case GL_DEBUG_SOURCE_SHADER_COMPILER -> "Shader compiler";
+		case GL_DEBUG_SOURCE_THIRD_PARTY -> "Third party";
+		case GL_DEBUG_SOURCE_WINDOW_SYSTEM -> "Window system";
+	
+		case GL_DEBUG_SEVERITY_LOW -> "Minor";
+		case GL_DEBUG_SEVERITY_MEDIUM -> "Moderate";
+		case GL_DEBUG_SEVERITY_HIGH -> "Major";
+		case GL_DEBUG_SEVERITY_NOTIFICATION -> "Notification";
+	
+		default -> "No";
+		};
 	}
 }

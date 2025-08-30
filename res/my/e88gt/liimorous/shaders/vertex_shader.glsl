@@ -5,8 +5,10 @@ layout (location = 1) in vec2 I_UV;
 
 out vec2 B_UV;
 
+layout (location = 3) uniform mat4 U_MatWorld;
+
 void main()
 {
 	B_UV = I_UV;
-	gl_Position = vec4(I_Position, 1);
+	gl_Position = U_MatWorld * vec4(I_Position, 1);
 }

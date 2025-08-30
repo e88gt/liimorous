@@ -50,6 +50,8 @@ public class Texture
 		}
 		
 		bind();
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexImage2D(GL_TEXTURE_2D, 0, format, width.get(0), height.get(0), 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 		glGenerateMipmap(GL_TEXTURE_2D);
 		
@@ -68,6 +70,7 @@ public class Texture
 	{
 		final int aa = (use) ? GL_LINEAR : GL_NEAREST;
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, aa);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, aa);
 	}
 	
 	public void delete()

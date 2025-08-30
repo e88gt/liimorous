@@ -14,11 +14,16 @@ public interface Input
 		REPEAT(GLFW_REPEAT),
 		RELEASE(GLFW_RELEASE);
 		
-		private final int value;
+		private final int action;
 		
 		private Action(int value)
 		{
-			this.value = value;
+			action = value;
+		}
+		
+		public int getAction()
+		{
+			return action;
 		}
 	}
 	

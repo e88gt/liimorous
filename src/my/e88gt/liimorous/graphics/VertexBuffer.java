@@ -1,12 +1,15 @@
 
 package my.e88gt.liimorous.graphics;
 
-import static org.lwjgl.opengl.GL46.*;
+import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 import java.nio.*;
+import java.util.*;
 
 import org.lwjgl.system.*;
+
+import my.e88gt.liimorous.mesh.*;
 
 /**
  * vertex buffer
@@ -16,7 +19,8 @@ public final class VertexBuffer
 	/**
 	 * the types of vertex buffer
 	 */
-	public static enum Type {
+	public static enum Type
+	{
 		/**
 		 * array buffer
 		 */
@@ -34,6 +38,7 @@ public final class VertexBuffer
 		
 		/**
 		 * the enum constructor
+		 * 
 		 * @param type
 		 */
 		private Type(int type)
@@ -43,6 +48,7 @@ public final class VertexBuffer
 		
 		/**
 		 * the getter
+		 * 
 		 * @return what it holds
 		 */
 		public int getType()
@@ -86,11 +92,24 @@ public final class VertexBuffer
 	
 	/**
 	 * sets the data
+	 * 
 	 * @param data
 	 */
-	public void data(float[] data)
+	public void data(List<Vertex> data)
 	{
-		FloatBuffer buffer = MemoryUtil.memCallocFloat(data.length).put(data).flip();
+		FloatBuffer buffer = MemoryUtil.memCallocFloat(data.size() * Vertex.LENGTH);
+		
+		for (int i = 0; i < data.size(); i++)
+		{
+			buffer.put(data.get(i).getPosition().x());
+			buffer.put(data.get(i).getPosition().y());
+			buffer.put(data.get(i).getPosition().z());
+			
+			buffer.put(data.get(i).getUV().x());
+			buffer.put(data.get(i).getUV().y());
+		}
+		
+		buffer.flip();
 		
 		bind();
 		glBufferData(type.getType(), buffer, GL_STATIC_DRAW);
@@ -100,6 +119,7 @@ public final class VertexBuffer
 	
 	/**
 	 * sets the data
+	 * 
 	 * @param data
 	 */
 	public void data(int[] data)

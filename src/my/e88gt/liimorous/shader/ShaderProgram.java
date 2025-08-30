@@ -38,12 +38,6 @@ public final class ShaderProgram
 		glUseProgram(program);
 	}
 	
-	public void uniformBool(int location, boolean value)
-	{
-		use();
-		glUniform1i(location, value ? GL_TRUE : GL_FALSE);
-	}
-	
 	public void uniformInt(int location, int value)
 	{
 		use();
@@ -60,6 +54,7 @@ public final class ShaderProgram
 	{
 		use();
 		FloatBuffer buffer = MemoryUtil.memCallocFloat(16);
+		matrix.get(buffer);
 		glUniformMatrix4fv(location, false, buffer);
 		MemoryUtil.memFree(buffer);
 	}
@@ -67,5 +62,10 @@ public final class ShaderProgram
 	public void delete()
 	{
 		glDeleteProgram(program);
+	}
+	
+	public int getID()
+	{
+		return program;
 	}
 }

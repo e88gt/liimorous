@@ -8,9 +8,9 @@ import my.e88gt.liimorous.screen.*;
 
 public final class Keyboard implements Input
 {
-	public static enum Key {
-		LAST(GLFW_KEY_LAST)
-		;
+	public static enum Key
+	{
+		LAST(GLFW_KEY_LAST);
 		
 		private final int key;
 		
@@ -18,14 +18,36 @@ public final class Keyboard implements Input
 		{
 			this.key = key;
 		}
+		
+		public int getKey()
+		{
+			return key;
+		}
 	}
 	
-	private final ArrayList<Boolean> keys = new ArrayList<>();
+	private final ArrayList<Boolean> keys = new ArrayList<>(Key.LAST.getKey());
 	private final Window window;
 	
 	public Keyboard(Window window)
 	{
 		this.window = window;
+		
+		for (int i = 0; i < Key.LAST.getKey(); i++)
+			keys.add(false);
+		
+		glfwSetKeyCallback(window.getAddress(), this::keyCallback);
+	}
+	
+	private void keyCallback(long window, int key, int scancode, int action, int mods)
+	{
+		boolean isDown = action != Action.RELEASE.getAction();
+		
+		keys.set(key, isDown);
+	}
+	
+	public boolean isDown(Key key)
+	{
+		return keys.get(key.getKey());
 	}
 	
 	@Override public Window getWindow()

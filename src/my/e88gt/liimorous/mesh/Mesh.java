@@ -1,27 +1,42 @@
 package my.e88gt.liimorous.mesh;
 
+import java.util.*;
+
+import org.joml.*;
+
 import my.e88gt.liimorous.graphics.*;
 import my.e88gt.liimorous.screen.*;
 
 public final class Mesh implements Renderable
 {
-	public static final Mesh PLANE = new Mesh(new float[]
+	private static class Datas
 	{
-		-0.5F, +0.5F, 0.0F, /**/ 0.0F, 0.0F, //
-		-0.5F, -0.5F, 0.0F, /**/ 0.0F, 1.0F, //
-		+0.5F, -0.5F, 0.0F, /**/ 1.0F, 1.0F, //
-		+0.5F, +0.5F, 0.0F, /**/ 1.0F, 0.0F, //
-	}, new int[]
+		private static final ArrayList<Vertex> vertices = new ArrayList<>();
+		private static final int[] indices =
+		{
+			0, 1, 2, //
+			2, 3, 0, //
+		};
+		
+		static
+		{
+			vertices.add(new Vertex(new Vector3f(-0.5F, +0.5F, 0), new Vector2f(0, 0)));
+			vertices.add(new Vertex(new Vector3f(-0.5F, -0.5F, 0), new Vector2f(0, 1)));
+			vertices.add(new Vertex(new Vector3f(+0.5F, -0.5F, 0), new Vector2f(1, 1)));
+			vertices.add(new Vertex(new Vector3f(+0.5F, +0.5F, 0), new Vector2f(1, 0)));
+		}
+	}
+	
+	public static class BuiltIn
 	{
-		0, 1, 2, //
-		2, 3, 0, //
-	});
+		public static final Mesh MESH = new Mesh(Datas.vertices, Datas.indices);
+	}
 	
 	private final int elementCount;
 	private final VertexArray vao;
 	private final VertexBuffer vbo, ebo;
 	
-	public Mesh(float[] vertices, int[] indices)
+	public Mesh(List<Vertex> vertices, int[] indices)
 	{
 		elementCount = indices.length;
 		

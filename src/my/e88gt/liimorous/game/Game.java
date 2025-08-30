@@ -1,31 +1,19 @@
 package my.e88gt.liimorous.game;
 
-import java.io.*;
-
 import my.e88gt.liimorous.input.*;
-import my.e88gt.liimorous.mesh.*;
+import my.e88gt.liimorous.mob.*;
 import my.e88gt.liimorous.screen.*;
-import my.e88gt.liimorous.texture.*;
 
 /**
  * the structure of the game itself
  */
 public final class Game
 {
-	final Mesh mesh;
-	final Texture texture;
+	TestMob mob;
 	
 	public Game()
 	{
-		mesh = Mesh.PLANE;
-		try
-		{
-			texture = new Texture(Texture.FOLDER_PATH + "test1.png");
-		}
-		catch (IOException e)
-		{
-			throw new UncheckedIOException(e);
-		}
+		mob = new TestMob();
 	}
 	
 	public void input(Input input)
@@ -34,16 +22,16 @@ public final class Game
 	
 	public void update(double delta)
 	{
+		mob.update(delta);
 	}
 	
 	public void render(Renderer renderer)
 	{
-		renderer.render(mesh, texture);
+		renderer.render(mob);
 	}
 	
 	public void destroy()
 	{
-		texture.delete();
-		mesh.destroy();
+		mob.destroy();
 	}
 }
