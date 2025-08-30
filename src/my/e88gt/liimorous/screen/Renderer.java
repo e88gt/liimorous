@@ -55,11 +55,12 @@ public final class Renderer
 		glClearColor(r, g, b, 1);
 	}
 	
-	public void render(Mob mob)
+	public void render(Camera camera, Mob mob)
 	{
 		shader.use();
 		shader.useTexture(0);
 		
+		shader.projectionMatrix(camera.getProjection(size.x, size.y));
 		shader.worldMatrix(mob.getTransformation());
 		
 		mob.getTexture().bind();

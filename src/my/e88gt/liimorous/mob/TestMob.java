@@ -41,6 +41,21 @@ public class TestMob implements Mob
 		mesh.destroy();
 	}
 	
+	public Vector3f getPosition()
+	{
+		return position;
+	}
+	
+	public Vector3f getRotation()
+	{
+		return rotation;
+	}
+	
+	public Vector3f getScale()
+	{
+		return scale;
+	}
+	
 	@Override public Mesh getMesh()
 	{
 		return mesh;

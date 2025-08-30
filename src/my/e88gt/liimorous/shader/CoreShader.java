@@ -53,6 +53,16 @@ public final class CoreShader
 		glActiveTexture(GL_TEXTURE0 + texture);
 	}
 	
+	public void projectionMatrix(Matrix4f projection)
+	{
+		program.uniformMat4(5, projection);
+	}
+	
+	public void viewMatrix(Matrix4f view)
+	{
+		program.uniformMat4(4, view);
+	}
+	
 	public void worldMatrix(Matrix4f world)
 	{
 		program.uniformMat4(3, world);

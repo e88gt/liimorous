@@ -10,10 +10,13 @@ import my.e88gt.liimorous.screen.*;
 public final class Game
 {
 	TestMob mob;
+	Camera3D camera;
 	
 	public Game()
 	{
+		camera = new Camera3D();
 		mob = new TestMob();
+		mob.getPosition().z = -1;
 	}
 	
 	public void input(Input input)
@@ -27,7 +30,7 @@ public final class Game
 	
 	public void render(Renderer renderer)
 	{
-		renderer.render(mob);
+		renderer.render(camera, mob);
 	}
 	
 	public void destroy()
