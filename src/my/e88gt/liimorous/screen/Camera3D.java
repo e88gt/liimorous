@@ -44,7 +44,7 @@ public class Camera3D implements Camera
 		return projection;
 	}
 	
-	@Override public Matrix4f viewMatrix()
+	@Override public Matrix4f getViewMatrix()
 	{
 		Matrix4f view = new Matrix4f();
 		

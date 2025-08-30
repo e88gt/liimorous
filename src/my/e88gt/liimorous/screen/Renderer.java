@@ -15,6 +15,7 @@ public final class Renderer
 {
 	private final Vector2i size = new Vector2i(Window.DEFAULT_WIDTH, Window.DEFAULT_HEIGHT);
 	private final Vector3f color = new Vector3f(0);
+	
 	private final CoreShader shader;
 	
 	public Renderer()
@@ -59,9 +60,9 @@ public final class Renderer
 	{
 		shader.use();
 		shader.useTexture(0);
-		
-		shader.projectionMatrix(camera.getProjection(size.x, size.y));
-		shader.worldMatrix(mob.getTransformation());
+		shader.updateProjectionMatrix(camera.getProjection(size.x, size.y));
+		shader.updateViewMatrix(camera.getViewMatrix());
+		shader.updateWorldMatrix(mob.getTransformation());
 		
 		mob.getTexture().bind();
 		mob.getMesh().getVertexArray().bind();

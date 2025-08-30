@@ -4,6 +4,7 @@ package my.e88gt.liimorous.engine;
 import my.e88gt.liimorous.game.*;
 import my.e88gt.liimorous.input.*;
 import my.e88gt.liimorous.screen.*;
+import my.e88gt.liimorous.shader.*;
 import my.e88gt.liimorous.utils.*;
 
 /**

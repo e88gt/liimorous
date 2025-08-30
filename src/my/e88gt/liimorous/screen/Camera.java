@@ -9,5 +9,5 @@ public interface Camera
 	// this is so you can use 2d camera with it
 	Matrix4f getProjection(int width, int height);
 	
-	Matrix4f viewMatrix();
+	Matrix4f getViewMatrix();
 }
