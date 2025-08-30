@@ -19,7 +19,7 @@ public class TestMob implements Mob
 	{
 		position = new Vector3f();
 		rotation = new Vector3f();
-		scale = new Vector3f(1);
+		scale = new Vector3f(0.5F);
 		
 		try {
 			texture = new Texture(Texture.FOLDER_PATH + "test1.png");
@@ -27,12 +27,12 @@ public class TestMob implements Mob
 			throw new UncheckedIOException(e);
 		}
 		
-		mesh = Mesh.BuiltIn.MESH;
+		mesh = Mesh.BuiltIn.CUBE;
 	}
 	
 	public void update(double delta)
 	{
-		rotation.y += delta * 60;
+		rotation.x += delta * 60;
 	}
 	
 	public void destroy()

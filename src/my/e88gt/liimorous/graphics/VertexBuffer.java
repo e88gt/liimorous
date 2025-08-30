@@ -91,11 +91,11 @@ public final class VertexBuffer
 	}
 	
 	/**
-	 * sets the data
+	 * sets the data for vertices
 	 * 
 	 * @param data
 	 */
-	public void data(List<Vertex> data)
+	public void vData(List<Vertex> data)
 	{
 		FloatBuffer buffer = MemoryUtil.memCallocFloat(data.size() * Vertex.LENGTH);
 		
@@ -118,13 +118,18 @@ public final class VertexBuffer
 	}
 	
 	/**
-	 * sets the data
+	 * sets the data int array
 	 * 
 	 * @param data
 	 */
-	public void data(int[] data)
+	public void iData(List<Integer> data)
 	{
-		IntBuffer buffer = MemoryUtil.memCallocInt(data.length).put(data).flip();
+		IntBuffer buffer = MemoryUtil.memCallocInt(data.size());
+		
+		for(int i = 0; i < data.size(); i++)
+			buffer.put(data.get(i));
+		
+		buffer.flip();
 		
 		bind();
 		glBufferData(type.getType(), buffer, GL_STATIC_DRAW);

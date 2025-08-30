@@ -12,11 +12,6 @@ public class Vertex
 	private final Vector3f position;
 	private final Vector2f uv;
 	
-	public Vertex()
-	{
-		this(new Vector3f(0), new Vector2f(0));
-	}
-	
 	public Vertex(Vector3f position, Vector2f uv)
 	{
 		this.position = position;
