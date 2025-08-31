@@ -1,5 +1,6 @@
 package my.e88gt.liimorous.game;
 
+import my.e88gt.liimorous.engine.*;
 import my.e88gt.liimorous.input.*;
 import my.e88gt.liimorous.mob.*;
 import my.e88gt.liimorous.screen.*;
@@ -16,11 +17,15 @@ public final class Game
 	{
 		camera = new Camera3D();
 		mob = new TestMob();
-		mob.getPosition().z = -1;
 	}
 	
 	public void input(Input input)
 	{
+		if (input instanceof Keyboard key)
+			if (key.isDown(Key.ESCAPE))
+				Launcher.LAUNCHER.getEngine().getWindow().setShouldClose(true);
+		
+		camera.input(input);
 	}
 	
 	public void update(double delta)

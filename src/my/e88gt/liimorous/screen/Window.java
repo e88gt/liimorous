@@ -157,6 +157,15 @@ public final class Window
 	}
 	
 	/**
+	 * sets whether the X button on window is clicked
+	 * @param should whether the window should close or not
+	 */
+	public void setShouldClose(boolean should)
+	{
+		glfwSetWindowShouldClose(window, should);
+	}
+	
+	/**
 	 * checks if the window is resized or not
 	 * 
 	 * @return
@@ -174,6 +183,24 @@ public final class Window
 	}
 	
 	/**
+	 * gets the width of the window
+	 * @return (int) width of the window
+	 */
+	public int getWidth()
+	{
+		return width;
+	}
+	
+	/**
+	 * gets the height of the window
+	 * @return (int) height of the window
+	 */
+	public int getHeight()
+	{
+		return height;
+	}
+	
+	/**
 	 * gets the width of the frame buffer
 	 * 
 	 * @return (int) the width of the frame buffer
@@ -184,15 +211,6 @@ public final class Window
 	}
 	
 	/**
-	 * gets the address of the window in long
-	 * @return (long) the address of the window
-	 */
-	public long getAddress()
-	{
-		return window;
-	}
-	
-	/**
 	 * gets the height of the frame buffer
 	 * 
 	 * @return (int) the height of the frame buffer
@@ -200,6 +218,15 @@ public final class Window
 	public int getFbHeight()
 	{
 		return fbHeight;
+	}
+	
+	/**
+	 * gets the address of the window in long
+	 * @return (long) the address of the window
+	 */
+	public long getAddress()
+	{
+		return window;
 	}
 	
 	/**

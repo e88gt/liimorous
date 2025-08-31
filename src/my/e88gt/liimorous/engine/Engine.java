@@ -39,13 +39,22 @@ public final class Engine
 	private final Keyboard keyboard;
 	
 	/**
+	 * the mouse clicks
+	 */
+	private final MouseClick click;
+	
+	/**
+	 * the mouse cursor movements
+	 */
+	private final MouseCursor cursor;
+	
+	/**
 	 * the game itself that we are in
 	 */
 	private final Game game;
 	
 	/**
-	 * package-private constructor because you dont
-	 * need to create it anywhere else
+	 * package-private constructor because you dont need to create it anywhere else
 	 */
 	Engine()
 	{
@@ -55,15 +64,15 @@ public final class Engine
 		renderer.clearColor(0.65F, 0.65F, 1);
 		
 		keyboard = new Keyboard(window);
+		click = new MouseClick(window);
+		cursor = new MouseCursor(window);
 		
 		game = new Game();
 	}
 	
 	/**
-	 * this is the core of the game
-	 * it has the game loop and
-	 * calculates the delta time and
-	 * the frames rendered each second
+	 * this is the core of the game it has the game loop and calculates the delta time and the frames
+	 * rendered each second
 	 */
 	void run()
 	{
@@ -102,9 +111,18 @@ public final class Engine
 	}
 	
 	/**
-	 * process the inputs like
-	 * keyboard key pressed, mouse button clicks, mouse
-	 * cursor movements and position, etc
+	 * gets the window the engine is using
+	 * 
+	 * @return the window
+	 */
+	public Window getWindow()
+	{
+		return window;
+	}
+	
+	/**
+	 * process the inputs like keyboard key pressed, mouse button clicks, mouse cursor movements and
+	 * position, etc
 	 * 
 	 * @throws ClassCastException if wrongly downcasted
 	 */
@@ -114,9 +132,11 @@ public final class Engine
 		
 		try
 		{
+			game.input(click);
+			game.input(cursor);
 			game.input(keyboard);
 		}
-		catch(ClassCastException e)
+		catch (ClassCastException e)
 		{
 			System.err.println(e);
 		}
@@ -129,7 +149,7 @@ public final class Engine
 	 */
 	private void update(double delta)
 	{
-		if(window.isResized())
+		if (window.isResized())
 			renderer.viewport(window.getFbWidth(), window.getFbHeight());
 		
 		game.update(delta);
@@ -180,9 +200,8 @@ public final class Engine
 	/**
 	 * whether the X button on the window is clicked
 	 * 
-	 * @return
-	 * true if it should close<br>
-	 * false if it is running<br>
+	 * @return true if it should close<br>
+	 *         false if it is running<br>
 	 */
 	private boolean shouldClose()
 	{

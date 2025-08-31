@@ -59,12 +59,14 @@ public final class Renderer
 	public void render(Camera camera, Mob mob)
 	{
 		shader.use();
+		
 		shader.useTexture(0);
+		mob.getTexture().bind();
+		
 		shader.updateProjectionMatrix(camera.getProjection(size.x, size.y));
 		shader.updateViewMatrix(camera.getViewMatrix());
 		shader.updateWorldMatrix(mob.getTransformation());
 		
-		mob.getTexture().bind();
 		mob.getMesh().getVertexArray().bind();
 		glDrawElements(GL_TRIANGLES, mob.getMesh().getElementCount(), GL_UNSIGNED_INT, 0);
 	}

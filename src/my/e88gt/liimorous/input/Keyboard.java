@@ -8,23 +8,6 @@ import my.e88gt.liimorous.screen.*;
 
 public final class Keyboard implements Input
 {
-	public static enum Key
-	{
-		LAST(GLFW_KEY_LAST);
-		
-		private final int key;
-		
-		private Key(int key)
-		{
-			this.key = key;
-		}
-		
-		public int getKey()
-		{
-			return key;
-		}
-	}
-	
 	private final ArrayList<Boolean> keys = new ArrayList<>(Key.LAST.getKey());
 	private final Window window;
 	
@@ -43,6 +26,11 @@ public final class Keyboard implements Input
 		boolean isDown = action != Action.RELEASE.getAction();
 		
 		keys.set(key, isDown);
+	}
+	
+	public boolean isDownI(int i)
+	{
+		return keys.get(i);
 	}
 	
 	public boolean isDown(Key key)

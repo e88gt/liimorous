@@ -12,14 +12,13 @@ public class TestMob implements Mob
 {
 	private final Vector3f position, rotation, scale; 
 	private final Texture texture;
-	
-	Mesh mesh;
+	private final Mesh mesh;
 	
 	public TestMob()
 	{
 		position = new Vector3f();
 		rotation = new Vector3f();
-		scale = new Vector3f(0.5F);
+		scale = new Vector3f(1F);
 		
 		try {
 			texture = new Texture(Texture.FOLDER_PATH + "test1.png");
@@ -28,11 +27,14 @@ public class TestMob implements Mob
 		}
 		
 		mesh = Mesh.BuiltIn.CUBE;
+		
+		position.z = -1.5F;
 	}
 	
 	public void update(double delta)
 	{
 		rotation.x += delta * 60;
+		rotation.y += delta * 10;
 	}
 	
 	public void destroy()
