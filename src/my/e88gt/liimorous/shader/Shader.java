@@ -5,24 +5,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 public final class Shader
 {
-	public static enum Type
-	{
-		VERTEX(GL_VERTEX_SHADER),
-		FRAGMENT(GL_FRAGMENT_SHADER);
-		
-		private final int handle;
-		
-		private Type(int handle)
-		{
-			this.handle = handle;
-		}
-	}
+	public static final String FOLDER_PATH = "res/my/e88gt/liimorous/shaders/";
 	
 	private final int shader;
 	
-	public Shader(Type type)
+	public Shader(ShaderType type)
 	{
-		shader = glCreateShader(type.handle);
+		shader = glCreateShader(type.getType());
 		
 		if (shader == NULL)
 			throw new IllegalStateException("Failed to create " + type + " shader");

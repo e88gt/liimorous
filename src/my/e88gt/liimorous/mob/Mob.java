@@ -11,5 +11,11 @@ public interface Mob
 	
 	Texture getTexture();
 	
+	Vector3f getPosition();
+	
+	Vector3f getRotation();
+	
+	Vector3f getScale();
+	
 	Matrix4f getTransformation();
 }

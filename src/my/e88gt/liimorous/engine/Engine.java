@@ -77,7 +77,7 @@ public final class Engine
 	void run()
 	{
 		final Time time = new Time();
-		double lastTime = time.getNano();
+		double lastTime = time.getSystemNano();
 		
 		start();
 		
@@ -87,7 +87,7 @@ public final class Engine
 			if (shouldClose())
 				stop();
 			
-			final double currentTime = time.getNano();
+			final double currentTime = time.getSystemNano();
 			final double deltaTime = (currentTime - lastTime) / Time.NS_PER_SEC;
 			
 			lastTime = currentTime;

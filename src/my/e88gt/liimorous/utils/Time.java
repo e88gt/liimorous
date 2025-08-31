@@ -4,11 +4,7 @@ public final class Time
 {
 	public static final int NS_PER_SEC = 1_000_000_000;
 	
-	public Time()
-	{
-	}
-	
-	public double getNano()
+	public double getSystemNano()
 	{
 		return System.nanoTime();
 	}

@@ -10,7 +10,7 @@ import my.e88gt.liimorous.utils.*;
 
 public final class CoreShader
 {
-	public static final String FOLDER_PATH = "res/my/e88gt/liimorous/shaders/";
+	public static final String FOLDER_PATH = Shader.FOLDER_PATH + "core/";
 	
 	private final Shader vertex, fragment;
 	private final ShaderProgram program;
@@ -18,8 +18,8 @@ public final class CoreShader
 	public CoreShader(String vertexPath, String fragmentPath)
 	{
 		program = new ShaderProgram();
-		vertex = new Shader(Shader.Type.VERTEX);
-		fragment = new Shader(Shader.Type.FRAGMENT);
+		vertex = new Shader(ShaderType.VERTEX);
+		fragment = new Shader(ShaderType.FRAGMENT);
 		
 		try
 		{

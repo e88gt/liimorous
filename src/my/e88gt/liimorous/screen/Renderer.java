@@ -30,7 +30,7 @@ public final class Renderer
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
 		
-		shader = new CoreShader(CoreShader.FOLDER_PATH + "vertex_shader.glsl", CoreShader.FOLDER_PATH + "fragment_shader.glsl");
+		shader = new CoreShader(CoreShader.FOLDER_PATH + "VertexShader.glsl", CoreShader.FOLDER_PATH + "FragmentShader.glsl");
 	}
 	
 	public void viewport(int width, int height)

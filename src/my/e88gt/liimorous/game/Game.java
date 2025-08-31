@@ -10,13 +10,22 @@ import my.e88gt.liimorous.screen.*;
  */
 public final class Game
 {
-	TestMob mob;
+	TestMob mob, mob2;
 	Camera3D camera;
 	
 	public Game()
 	{
 		camera = new Camera3D();
+		
 		mob = new TestMob();
+		mob.getTexture().useAA(false);
+		mob.getPosition().x = 0.6F;
+		mob.getPosition().z = -1.5F;
+		
+		mob2 = new TestMob();
+		mob2.getTexture().useAA(true);
+		mob2.getPosition().x = -0.6F;
+		mob2.getPosition().z = -1.5F;
 	}
 	
 	public void input(Input input)
@@ -36,10 +45,12 @@ public final class Game
 	public void render(Renderer renderer)
 	{
 		renderer.render(camera, mob);
+		renderer.render(camera, mob2);
 	}
 	
 	public void destroy()
 	{
 		mob.destroy();
+		mob2.destroy();
 	}
 }

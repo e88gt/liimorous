@@ -21,20 +21,19 @@ public class TestMob implements Mob
 		scale = new Vector3f(1F);
 		
 		try {
-			texture = new Texture(Texture.FOLDER_PATH + "test1.png");
+			texture = new Texture(Texture.FOLDER_PATH + "tests/Test1.png");
 		}catch(IOException e) {
 			throw new UncheckedIOException(e);
 		}
 		
 		mesh = Mesh.BuiltIn.CUBE;
-		
-		position.z = -1.5F;
 	}
 	
 	public void update(double delta)
 	{
 		rotation.x += delta * 60;
 		rotation.y += delta * 10;
+		rotation.z += delta * 100;
 	}
 	
 	public void destroy()
@@ -43,17 +42,17 @@ public class TestMob implements Mob
 		mesh.destroy();
 	}
 	
-	public Vector3f getPosition()
+	@Override public Vector3f getPosition()
 	{
 		return position;
 	}
 	
-	public Vector3f getRotation()
+	@Override public Vector3f getRotation()
 	{
 		return rotation;
 	}
 	
-	public Vector3f getScale()
+	@Override public Vector3f getScale()
 	{
 		return scale;
 	}

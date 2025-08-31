@@ -12,7 +12,9 @@ import org.lwjgl.system.*;
 public class Texture
 {
 	public static final String FOLDER_PATH = "res/my/e88gt/liimorous/textures/";
+	public static final String TEST_PATH = FOLDER_PATH + "tests/";
 	
+	private boolean aa;
 	private final int texture;
 	
 	public Texture(String path) throws IOException
@@ -68,9 +70,10 @@ public class Texture
 	
 	public void useAA(boolean use)
 	{
-		final int aa = (use) ? GL_LINEAR : GL_NEAREST;
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, aa);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, aa);
+		aa = use;
+		final int filter = (aa) ? GL_LINEAR : GL_NEAREST;
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter);
 	}
 	
 	public void delete()

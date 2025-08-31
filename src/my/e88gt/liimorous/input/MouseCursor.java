@@ -38,6 +38,11 @@ public class MouseCursor implements Input
 		return inWindow;
 	}
 	
+	public void setVisible(boolean showCursor)
+	{
+		glfwSetInputMode(window.getAddress(), GLFW_CURSOR, showCursor ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_HIDDEN);
+	}
+	
 	public void setPosition(double xp, double yp)
 	{
 		glfwSetCursorPos(window.getAddress(), xp, yp);

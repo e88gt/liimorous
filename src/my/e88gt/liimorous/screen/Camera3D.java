@@ -12,7 +12,7 @@ public class Camera3D implements Camera
 	public static final float DEFAULT_ZFAR = 1000.0F;
 	public static final float DEFAULT_ZNEAR = 0.01F;
 	
-	private boolean move;
+	private boolean move, affectUp;
 	private float fov, zfar, znear, speed, sensitivity;
 	private final Vector3f position, rotation;
 	
@@ -46,12 +46,16 @@ public class Camera3D implements Camera
 	
 	private void click(MouseClick click)
 	{
-		if(click.isDown(MouseButton.RIGHT))
+		if (click.isDown(MouseButton.RIGHT))
+		{
 			move = true;
+		}
 	}
 	
 	private void cursor(MouseCursor cursor)
 	{
+		cursor.setVisible(!move);
+		
 		if (move)
 		{
 			rotation.x += (cursor.getCenteredY() * sensitivity);
@@ -81,11 +85,11 @@ public class Camera3D implements Camera
 		}
 		if (key.isDownI(' '))
 		{
-			moveLocal(0, speed, 0);
+			position.y += speed;
 		}
 		if (key.isDown(Key.TAB))
 		{
-			moveLocal(0, -speed, 0);
+			position.y -= speed;
 		}
 	}
 	
@@ -94,17 +98,20 @@ public class Camera3D implements Camera
 		final Vector3f localMovement = new Vector3f(x, y, z);
 		final Matrix4f localRotation = new Matrix4f();
 		localRotation.rotateY(Math.toRadians(rotation.y));
-		localRotation.rotateX(Math.toRadians(rotation.x));
+		
+		if(affectUp)
+			localRotation.rotateX(Math.toRadians(rotation.x));
+		
 		localRotation.transformDirection(localMovement);
 		position.add(localMovement);
 	}
 	
-	public Vector3f getPosition()
+	@Override public Vector3f getPosition()
 	{
 		return position;
 	}
 	
-	public Vector3f getRotation()
+	@Override public Vector3f getRotation()
 	{
 		return rotation;
 	}
