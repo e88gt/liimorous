@@ -1,155 +1,48 @@
-
 package my.e88gt.liimorous.graphics;
 
-import static org.lwjgl.opengl.GL15.*;
+import static org.lwjgl.opengl.GL46.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 import java.nio.*;
 import java.util.*;
 
-import org.lwjgl.system.*;
-
 import my.e88gt.liimorous.mesh.*;
 
-/**
- * vertex buffer
- */
-public final class VertexBuffer
+public class VertexBuffer
 {
-	/**
-	 * the types of vertex buffer
-	 */
-	public static enum Type
-	{
-		/**
-		 * array buffer
-		 */
-		ARRAY(GL_ARRAY_BUFFER),
-		
-		/**
-		 * element array buffer
-		 */
-		ELEMENT_ARRAY(GL_ELEMENT_ARRAY_BUFFER);
-		
-		/**
-		 * the type it holds
-		 */
-		private final int type;
-		
-		/**
-		 * the enum constructor
-		 * 
-		 * @param type
-		 */
-		private Type(int type)
-		{
-			this.type = type;
-		}
-		
-		/**
-		 * the getter
-		 * 
-		 * @return what it holds
-		 */
-		public int getType()
-		{
-			return type;
-		}
-	}
-	
-	/**
-	 * the id that holds the informations
-	 */
 	private final int vbo;
 	
-	/**
-	 * the type
-	 */
-	private final Type type;
-	
-	/**
-	 * creates a vertex buffer
-	 * 
-	 * @param type {@link Type}
-	 */
-	public VertexBuffer(Type type)
+	public VertexBuffer()
 	{
-		this.type = type;
-		
-		vbo = glGenBuffers();
+		vbo = glCreateBuffers();
 		
 		if (vbo == NULL)
-			throw new IllegalStateException("Failed to create buffer");
+			throw new IllegalStateException("Failed to create vertex buffer");
 	}
 	
-	/**
-	 * binds the buffer with its type
-	 */
-	public void bind()
+	public void storage(List<Vertex> vertices)
 	{
-		glBindBuffer(type.getType(), vbo);
-	}
-	
-	/**
-	 * sets the data for vertices
-	 * 
-	 * @param data
-	 */
-	public void vData(List<Vertex> data)
-	{
-		FloatBuffer buffer = MemoryUtil.memCallocFloat(data.size() * Vertex.LENGTH);
+		FloatBuffer buffer = memCallocFloat(vertices.size() * Vertex.LENGTH);
 		
-		for (int i = 0; i < data.size(); i++)
+		for (int i = 0; i < vertices.size(); i++)
 		{
-			buffer.put(data.get(i).getPosition().x());
-			buffer.put(data.get(i).getPosition().y());
-			buffer.put(data.get(i).getPosition().z());
-			
-			buffer.put(data.get(i).getUV().x());
-			buffer.put(data.get(i).getUV().y());
+			buffer.put(vertices.get(i).getPosition().x);
+			buffer.put(vertices.get(i).getPosition().y);
+			buffer.put(vertices.get(i).getPosition().z);
+			buffer.put(vertices.get(i).getUV().x);
+			buffer.put(vertices.get(i).getUV().y);
 		}
 		
 		buffer.flip();
-		
-		bind();
-		glBufferData(type.getType(), buffer, GL_STATIC_DRAW);
-		
-		MemoryUtil.memFree(buffer);
+		glNamedBufferStorage(vbo, buffer, GL_DYNAMIC_STORAGE_BIT);
+		memFree(buffer);
 	}
 	
-	/**
-	 * sets the data int array
-	 * 
-	 * @param data
-	 */
-	public void iData(List<Integer> data)
-	{
-		IntBuffer buffer = MemoryUtil.memCallocInt(data.size());
-		
-		for(int i = 0; i < data.size(); i++)
-			buffer.put(data.get(i));
-		
-		buffer.flip();
-		
-		bind();
-		glBufferData(type.getType(), buffer, GL_STATIC_DRAW);
-		
-		MemoryUtil.memFree(buffer);
-	}
-	
-	/**
-	 * deletes the buffer
-	 */
 	public void delete()
 	{
 		glDeleteBuffers(vbo);
 	}
 	
-	/**
-	 * the id it holds
-	 * 
-	 * @return the id
-	 */
 	public int getID()
 	{
 		return vbo;

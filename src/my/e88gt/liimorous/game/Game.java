@@ -17,13 +17,11 @@ public final class Game
 	{
 		camera = new Camera3D();
 		
-		mob = new TestMob();
-		mob.getTexture().useAA(true);
+		mob = new TestMob(true);
 		mob.getPosition().x = 0.6F;
 		mob.getPosition().z = -1.5F;
 		
-		mob2 = new TestMob();
-		mob2.getTexture().useAA(false);
+		mob2 = new TestMob(false);
 		mob2.getPosition().x = -0.6F;
 		mob2.getPosition().z = -1.5F;
 	}

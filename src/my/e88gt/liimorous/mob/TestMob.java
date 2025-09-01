@@ -10,19 +10,22 @@ import my.e88gt.liimorous.texture.*;
 
 public class TestMob implements Mob
 {
-	private final Vector3f position, rotation, scale; 
+	private final Vector3f position, rotation, scale;
 	private final Texture texture;
 	private final Mesh mesh;
 	
-	public TestMob()
+	public TestMob(boolean aa)
 	{
 		position = new Vector3f();
 		rotation = new Vector3f();
 		scale = new Vector3f(1F);
 		
-		try {
-			texture = new Texture(Texture.FOLDER_PATH + "tests/Test1.png");
-		}catch(IOException e) {
+		try
+		{
+			texture = new Texture(Texture.FOLDER_PATH + "tests/Test1.png", aa);
+		}
+		catch (IOException e)
+		{
 			throw new UncheckedIOException(e);
 		}
 		
