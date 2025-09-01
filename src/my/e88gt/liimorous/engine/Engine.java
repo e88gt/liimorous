@@ -1,10 +1,11 @@
 
 package my.e88gt.liimorous.engine;
 
+import java.time.*;
+
 import my.e88gt.liimorous.game.*;
 import my.e88gt.liimorous.input.*;
 import my.e88gt.liimorous.screen.*;
-import my.e88gt.liimorous.shader.*;
 import my.e88gt.liimorous.utils.*;
 
 /**
@@ -90,6 +91,11 @@ public final class Engine
 			final double currentTime = time.getSystemNano();
 			final double deltaTime = (currentTime - lastTime) / Time.NS_PER_SEC;
 			
+			try {
+				Thread.sleep(Duration.ofNanos(-100000L));
+			}catch(InterruptedException e){
+			}
+			
 			lastTime = currentTime;
 			fps = 1 / deltaTime;
 			
@@ -98,6 +104,17 @@ public final class Engine
 		}
 		
 		destroy();
+	}
+	
+	/**
+	 * checks whether the engine is running or not
+	 * @return
+	 * true if it is still running<br>
+	 * false if it has stopped<br>
+	 */
+	public boolean isRunning()
+	{
+		return running;
 	}
 	
 	/**

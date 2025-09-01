@@ -18,12 +18,12 @@ public final class Game
 		camera = new Camera3D();
 		
 		mob = new TestMob();
-		mob.getTexture().useAA(false);
+		mob.getTexture().useAA(true);
 		mob.getPosition().x = 0.6F;
 		mob.getPosition().z = -1.5F;
 		
 		mob2 = new TestMob();
-		mob2.getTexture().useAA(true);
+		mob2.getTexture().useAA(false);
 		mob2.getPosition().x = -0.6F;
 		mob2.getPosition().z = -1.5F;
 	}
@@ -40,6 +40,7 @@ public final class Game
 	public void update(double delta)
 	{
 		mob.update(delta);
+		camera.update(delta);
 	}
 	
 	public void render(Renderer renderer)

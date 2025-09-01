@@ -16,6 +16,18 @@ public class Camera3D implements Camera
 	private float fov, zfar, znear, speed, sensitivity;
 	private final Vector3f position, rotation;
 	
+	{
+		Thread t = new Thread(() ->
+		{
+			while (Launcher.LAUNCHER.getEngine().isRunning())
+			{
+				System.out.println("running at " + Launcher.LAUNCHER.getEngine().getFPS() + " fps");
+			}
+		});
+		
+		t.start();
+	}
+	
 	public Camera3D()
 	{
 		this(DEFAULT_FOV, DEFAULT_ZNEAR, DEFAULT_ZFAR);
@@ -93,16 +105,22 @@ public class Camera3D implements Camera
 		}
 	}
 	
+	public void update(double delta)
+	{
+	}
+	
 	public void moveLocal(float x, float y, float z)
 	{
 		final Vector3f localMovement = new Vector3f(x, y, z);
 		final Matrix4f localRotation = new Matrix4f();
+		
 		localRotation.rotateY(Math.toRadians(rotation.y));
 		
-		if(affectUp)
+		if (affectUp)
 			localRotation.rotateX(Math.toRadians(rotation.x));
 		
 		localRotation.transformDirection(localMovement);
+		
 		position.add(localMovement);
 	}
 	
