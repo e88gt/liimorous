@@ -5,7 +5,7 @@ import java.util.*;
 import my.e88gt.liimorous.graphics.*;
 import my.e88gt.liimorous.screen.*;
 
-public class Mesh implements Renderable
+public final class Mesh implements Renderable
 {
 	private final int elementCount;
 	private final VertexArray vao;
@@ -18,8 +18,8 @@ public class Mesh implements Renderable
 		vbo = new VertexBuffer();
 		ebo = new ElementBuffer();
 		
-		vbo.storage(vertices);
-		ebo.storage(indices);
+		vbo.store(vertices);
+		ebo.store(indices);
 		
 		vao.vertex(vbo, 20);
 		vao.element(ebo);
@@ -46,7 +46,7 @@ public class Mesh implements Renderable
 		return elementCount;
 	}
 	
-	public static class BuiltIn
+	public static class Preset
 	{
 		public static final Mesh PLANE = new Mesh(Datas.planeVertices, Datas.planeIndices);
 		public static final Mesh CUBE = new Mesh(Datas.cubeVertices, Datas.cubeIndices);

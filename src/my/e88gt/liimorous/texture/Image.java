@@ -9,32 +9,27 @@ import java.nio.*;
 public class Image
 {
 	private final int width, height;
-	private final String extension;
 	private final ByteBuffer pixels;
 	
 	public Image(String imagePath) throws IOException
 	{
-		IntBuffer width = memCallocInt(1);
-		IntBuffer height = memCallocInt(1);
-		IntBuffer channel = memCallocInt(1);
+		IntBuffer dataBuffer = memCallocInt(3);
 		
 		stbi_set_flip_vertically_on_load(true);
+		long imageAddress = nstbi_load(memAddress(memUTF8(imagePath)), memAddress(dataBuffer), memAddress(dataBuffer) + 4, memAddress(dataBuffer) + 8, STBI_rgb_alpha);
 		
-		pixels = stbi_load(imagePath, width, height, channel, STBI_rgb_alpha);
-		if (pixels == null)
+		if (imageAddress == NULL)
 			throw new IOException(stbi_failure_reason() + "\nPath: '" + imagePath + "'");
 		
-		extension = imagePath.substring(imagePath.lastIndexOf('.') + 1);
+		this.width = dataBuffer.get(0);
+		this.height = dataBuffer.get(1);
 		
-		this.width = width.get(0);
-		this.height = height.get(0);
+		pixels = memByteBuffer(imageAddress, width * height * STBI_rgb_alpha);
 		
-		memFree(width);
-		memFree(height);
-		memFree(channel);
+		memFree(dataBuffer);
 	}
 	
-	public void dispose()
+	public void free()
 	{
 		stbi_image_free(pixels);
 	}
@@ -47,11 +42,6 @@ public class Image
 	public int getHeight()
 	{
 		return height;
-	}
-	
-	public String getExtension()
-	{
-		return extension;
 	}
 	
 	public ByteBuffer getPixels()

@@ -6,7 +6,7 @@ import java.util.*;
 
 import my.e88gt.liimorous.screen.*;
 
-public class MouseClick implements Input
+public final class MouseClick implements Input
 {
 	private final ArrayList<Boolean> buttons = new ArrayList<>(MouseButton.LAST.getButton());
 	private final Window window;

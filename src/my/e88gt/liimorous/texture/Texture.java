@@ -26,7 +26,7 @@ public class Texture
 		glTextureParameteri(texture, GL_TEXTURE_MAG_FILTER, (aa) ? GL_LINEAR : GL_NEAREST);
 		glGenerateTextureMipmap(texture);
 		
-		image.dispose();
+		image.free();
 	}
 	
 	public Texture(String path, boolean aa) throws IOException

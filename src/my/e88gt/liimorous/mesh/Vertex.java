@@ -2,7 +2,7 @@ package my.e88gt.liimorous.mesh;
 
 import org.joml.*;
 
-public class Vertex
+public final class Vertex
 {
 	public static final int POSITION_SIZE = 3;
 	public static final int UV_SIZE = 2;

@@ -1,4 +1,4 @@
-package my.e88gt.liimorous.tests;
+package my.e88gt.tests;
 
 import my.e88gt.liimorous.screen.*;
 

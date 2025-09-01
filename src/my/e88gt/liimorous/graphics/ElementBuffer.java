@@ -8,7 +8,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import java.nio.*;
 import java.util.*;
 
-public class ElementBuffer
+public final class ElementBuffer
 {
 	private final int ebo;
 	
@@ -20,7 +20,7 @@ public class ElementBuffer
 			throw new IllegalStateException("Failed to create element buffer");
 	}
 	
-	public void storage(List<Integer> indices)
+	public void store(List<Integer> indices)
 	{
 		IntBuffer buffer = memCallocInt(indices.size());
 		

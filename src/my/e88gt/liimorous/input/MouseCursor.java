@@ -6,7 +6,7 @@ import org.joml.*;
 
 import my.e88gt.liimorous.screen.*;
 
-public class MouseCursor implements Input
+public final class MouseCursor implements Input
 {
 	private boolean moving, inWindow;
 	private final Vector2d position, centeredPosition;

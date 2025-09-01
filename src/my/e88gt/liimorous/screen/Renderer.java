@@ -26,6 +26,8 @@ public final class Renderer
 		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 		glDebugMessageCallback(this::debugCallback, 0);
 		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, (IntBuffer) null, true);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glEnable(GL_STENCIL_TEST);
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
@@ -44,7 +46,7 @@ public final class Renderer
 	
 	public void clear()
 	{
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	}
 	
 	public void clearColor(float r, float g, float b)
@@ -77,11 +79,11 @@ public final class Renderer
 		GL.destroy();
 	}
 	
-	private void debugCallback(int source, int type, int id, int severity, int length, long message, long userParameter)
+	private void debugCallback(int source, int type, int _id, int severity, int length, long message, long _userParam)
 	{
-		String sSource = stringDebugGL(source);
-		String sType = stringDebugGL(type).toLowerCase();
-		String sSeverity = stringDebugGL(severity);
+		final String sSource = stringDebugGL(source);
+		final String sType = stringDebugGL(type).toLowerCase();
+		final String sSeverity = stringDebugGL(severity);
 		
 		System.err.println("- " + sSeverity + " " + sType + " from: " + sSource);
 		System.err.println(GLDebugMessageCallback.getMessage(length, message) + "\n");

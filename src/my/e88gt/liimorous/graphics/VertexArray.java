@@ -5,7 +5,7 @@ import static org.lwjgl.opengl.GL30.*;
 import static org.lwjgl.opengl.GL45.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-public class VertexArray
+public final class VertexArray
 {
 	private final int vao;
 	

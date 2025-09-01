@@ -10,7 +10,7 @@ import java.util.*;
 
 import my.e88gt.liimorous.mesh.*;
 
-public class VertexBuffer
+public final class VertexBuffer
 {
 	private final int vbo;
 	
@@ -22,7 +22,7 @@ public class VertexBuffer
 			throw new IllegalStateException("Failed to create vertex buffer");
 	}
 	
-	public void storage(List<Vertex> vertices)
+	public void store(List<Vertex> vertices)
 	{
 		FloatBuffer buffer = memCallocFloat(vertices.size() * Vertex.LENGTH);
 		

@@ -8,7 +8,7 @@ import org.joml.Math;
 import my.e88gt.liimorous.mesh.*;
 import my.e88gt.liimorous.texture.*;
 
-public class TestMob implements Mob
+public final class TestMob implements Mob
 {
 	private final Vector3f position, rotation, scale;
 	private final Texture texture;
@@ -29,7 +29,7 @@ public class TestMob implements Mob
 			throw new UncheckedIOException(e);
 		}
 		
-		mesh = Mesh.BuiltIn.CUBE;
+		mesh = Mesh.Preset.CUBE;
 	}
 	
 	public void update(double delta)

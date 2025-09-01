@@ -4,7 +4,7 @@ import java.util.*;
 
 import org.joml.*;
 
-class Datas
+final class Datas
 {
 	static final ArrayList<Vertex> planeVertices = new ArrayList<>();
 	static final ArrayList<Integer> planeIndices = new ArrayList<>();

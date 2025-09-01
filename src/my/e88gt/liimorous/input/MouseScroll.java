@@ -6,7 +6,7 @@ import org.joml.*;
 
 import my.e88gt.liimorous.screen.*;
 
-public class MouseScroll implements Input
+public final class MouseScroll implements Input
 {
 	private boolean scrolling = false;
 	private final Vector2d scroll = new Vector2d(0);

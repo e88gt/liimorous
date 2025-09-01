@@ -6,7 +6,7 @@ import org.joml.Math;
 import my.e88gt.liimorous.engine.*;
 import my.e88gt.liimorous.input.*;
 
-public class Camera3D implements Camera
+public final class Camera3D implements Camera
 {
 	public static final float DEFAULT_FOV = 120.0F;
 	public static final float DEFAULT_ZFAR = 1000.0F;
@@ -15,18 +15,6 @@ public class Camera3D implements Camera
 	private boolean movingView, affectUp;
 	private float fov, zfar, znear, speed, sensitivity;
 	private final Vector3f position, rotation;
-	
-	{
-		Thread t = new Thread(() ->
-		{
-			while (Launcher.LAUNCHER.getEngine().isRunning())
-			{
-				System.out.println("running at " + Launcher.LAUNCHER.getEngine().getFPS() + " fps");
-			}
-		});
-		
-		t.start();
-	}
 	
 	public Camera3D()
 	{

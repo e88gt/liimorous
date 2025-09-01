@@ -29,7 +29,7 @@ public final class CoreShader
 		}
 		catch (IOException e)
 		{
-			throw new RuntimeException(e);
+			throw new UncheckedIOException(e);
 		}
 		
 		vertex.compile();
