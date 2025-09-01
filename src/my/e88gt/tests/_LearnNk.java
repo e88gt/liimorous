@@ -24,7 +24,7 @@ import org.lwjgl.opengl.*;
 import org.lwjgl.stb.*;
 import org.lwjgl.system.*;
 
-class _Program
+class _LearnNk
 {
 	static int vao, vbo, ebo, tex;
 	static int prog, vert, frag;
