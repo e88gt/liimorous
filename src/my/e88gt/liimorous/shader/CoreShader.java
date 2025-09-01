@@ -1,7 +1,5 @@
 package my.e88gt.liimorous.shader;
 
-import static org.lwjgl.opengl.GL13.*;
-
 import java.io.*;
 
 import org.joml.*;
@@ -50,7 +48,6 @@ public final class CoreShader
 	public void useTexture(int texture)
 	{
 		program.uniformInt(2, texture);
-		glActiveTexture(GL_TEXTURE0 + texture);
 	}
 	
 	public void updateProjectionMatrix(Matrix4f projection)

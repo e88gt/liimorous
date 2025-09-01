@@ -1,8 +1,6 @@
 
 package my.e88gt.liimorous.engine;
 
-import java.time.*;
-
 import my.e88gt.liimorous.game.*;
 import my.e88gt.liimorous.input.*;
 import my.e88gt.liimorous.screen.*;
@@ -49,6 +47,8 @@ public final class Engine
 	 */
 	private final MouseCursor cursor;
 	
+	private final MouseScroll scroll;
+	
 	/**
 	 * the game itself that we are in
 	 */
@@ -67,6 +67,7 @@ public final class Engine
 		keyboard = new Keyboard(window);
 		click = new MouseClick(window);
 		cursor = new MouseCursor(window);
+		scroll = new MouseScroll(window);
 		
 		game = new Game();
 	}
@@ -91,11 +92,6 @@ public final class Engine
 			final double currentTime = time.getSystemNano();
 			final double deltaTime = (currentTime - lastTime) / Time.NS_PER_SEC;
 			
-			try {
-				Thread.sleep(Duration.ofNanos(-100000L));
-			}catch(InterruptedException e){
-			}
-			
 			lastTime = currentTime;
 			fps = 1 / deltaTime;
 			
@@ -108,9 +104,9 @@ public final class Engine
 	
 	/**
 	 * checks whether the engine is running or not
-	 * @return
-	 * true if it is still running<br>
-	 * false if it has stopped<br>
+	 * 
+	 * @return true if it is still running<br>
+	 *         false if it has stopped<br>
 	 */
 	public boolean isRunning()
 	{
@@ -149,9 +145,10 @@ public final class Engine
 		
 		try
 		{
-			game.input(click);
-			game.input(cursor);
 			game.input(keyboard);
+			game.input(cursor);
+			game.input(click);
+			game.input(scroll);
 		}
 		catch (ClassCastException e)
 		{

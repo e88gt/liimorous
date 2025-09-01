@@ -48,7 +48,7 @@ public class Mesh implements Renderable
 	
 	public static class BuiltIn
 	{
-		public static final Mesh PLANE = new Mesh(_Mesh.Datas.planeVertices, _Mesh.Datas.planeIndices);
-		public static final Mesh CUBE = new Mesh(_Mesh.Datas.cubeVertices, _Mesh.Datas.cubeIndices);
+		public static final Mesh PLANE = new Mesh(Datas.planeVertices, Datas.planeIndices);
+		public static final Mesh CUBE = new Mesh(Datas.cubeVertices, Datas.cubeIndices);
 	}
 }

@@ -1,6 +1,8 @@
 package my.e88gt.liimorous.graphics;
 
-import static org.lwjgl.opengl.GL46.*;
+import static org.lwjgl.opengl.GL15.*;
+import static org.lwjgl.opengl.GL44.*;
+import static org.lwjgl.opengl.GL45.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 import java.nio.*;

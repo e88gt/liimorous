@@ -1,6 +1,8 @@
 package my.e88gt.liimorous.graphics;
 
-import static org.lwjgl.opengl.GL46.*;
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL30.*;
+import static org.lwjgl.opengl.GL45.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 public class VertexArray

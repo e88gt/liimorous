@@ -12,7 +12,7 @@ public class Camera3D implements Camera
 	public static final float DEFAULT_ZFAR = 1000.0F;
 	public static final float DEFAULT_ZNEAR = 0.01F;
 	
-	private boolean move, affectUp;
+	private boolean movingView, affectUp;
 	private float fov, zfar, znear, speed, sensitivity;
 	private final Vector3f position, rotation;
 	
@@ -54,26 +54,29 @@ public class Camera3D implements Camera
 		
 		if (input instanceof MouseCursor cursor)
 			cursor(cursor);
+		
+		if (input instanceof MouseScroll scroll)
+			scroll(scroll);
 	}
 	
 	private void click(MouseClick click)
 	{
-		if (click.isDown(MouseButton.RIGHT))
+		if (click.isDown(MouseButton.MIDDLE))
 		{
-			move = true;
+			movingView = true;
 		}
 	}
 	
 	private void cursor(MouseCursor cursor)
 	{
-		cursor.setVisible(!move);
+		cursor.setVisible(!movingView);
 		
-		if (move)
+		if (movingView)
 		{
 			rotation.x += (cursor.getCenteredY() * sensitivity);
 			rotation.y -= (cursor.getCenteredX() * sensitivity);
 			cursor.setPosition(Launcher.LAUNCHER.getEngine().getWindow().getWidth() / 2, Launcher.LAUNCHER.getEngine().getWindow().getHeight() / 2);
-			move = false;
+			movingView = false;
 		}
 	}
 	
@@ -103,6 +106,12 @@ public class Camera3D implements Camera
 		{
 			position.y -= speed;
 		}
+	}
+	
+	private void scroll(MouseScroll scroll)
+	{
+		if (scroll.isScrolling())
+			fov += scroll.getScrollY();
 	}
 	
 	public void update(double delta)
