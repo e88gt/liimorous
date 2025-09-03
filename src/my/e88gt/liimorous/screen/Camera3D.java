@@ -59,19 +59,12 @@ public final class Camera3D implements Camera
 	{
 		cursor.setVisible(!movingView);
 		
-		if(movingView)
+		if (movingView)
 		{
 			cursor.setPosition(Launcher.LAUNCHER.getEngine().getWindow().getWidth() / 2, Launcher.LAUNCHER.getEngine().getWindow().getHeight() / 2);
-			rotation.z += -(cursor.getDeltaX() * sensitivity);
-			rotation.x += -(cursor.getDeltaY() * sensitivity);
+			rotation.x += (cursor.getCenteredY() * sensitivity);
+			rotation.y -= (cursor.getCenteredX() * sensitivity);
 		}
-		
-//		if (movingView)
-//		{
-//			cursor.setPosition(Launcher.LAUNCHER.getEngine().getWindow().getWidth() / 2, Launcher.LAUNCHER.getEngine().getWindow().getHeight() / 2);
-//			rotation.x += (cursor.getCenteredY() * sensitivity);
-//			rotation.y -= (cursor.getCenteredX() * sensitivity);
-//		}
 	}
 	
 	private void keyboard(Keyboard key)

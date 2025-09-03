@@ -20,12 +20,6 @@ public final class Game
 	public void input(Input input)
 	{
 		camera.input(input);
-		
-		if(input instanceof MouseCursor cursor)
-		{
-			System.out.println("[" + cursor.getDeltaX() + ", " + cursor.getDeltaY()+ "]");
-		}
-		
 		scene.input(input);
 	}
 	
