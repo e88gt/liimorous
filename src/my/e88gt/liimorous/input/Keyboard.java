@@ -28,7 +28,7 @@ public final class Keyboard implements Input
 		keys.set(key, isDown);
 	}
 	
-	public boolean isDownI(int i)
+	public boolean isDown(int i)
 	{
 		return keys.get(i);
 	}

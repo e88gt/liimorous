@@ -13,7 +13,7 @@ public final class Camera3D implements Camera
 	public static final float DEFAULT_ZNEAR = 0.01F;
 	
 	private boolean movingView, affectUp;
-	private float fov, zfar, znear, speed, sensitivity;
+	private float fov, zFar, zNear, speed, sensitivity;
 	private final Vector3f position, rotation;
 	
 	public Camera3D()
@@ -24,8 +24,8 @@ public final class Camera3D implements Camera
 	public Camera3D(float fov, float znear, float zfar)
 	{
 		this.fov = fov;
-		this.zfar = zfar;
-		this.znear = znear;
+		this.zFar = zfar;
+		this.zNear = znear;
 		speed = 0.0005F;
 		sensitivity = 0.01F;
 		position = new Vector3f();
@@ -49,7 +49,7 @@ public final class Camera3D implements Camera
 	
 	private void click(MouseClick click)
 	{
-		if (click.isDown(MouseButton.MIDDLE))
+		if (click.isDown(MouseButton.LEFT))
 		{
 			movingView = true;
 		}
@@ -61,32 +61,36 @@ public final class Camera3D implements Camera
 		
 		if (movingView)
 		{
+			cursor.setPosition(Launcher.LAUNCHER.getEngine().getWindow().getWidth() / 2, Launcher.LAUNCHER.getEngine().getWindow().getHeight() / 2);
 			rotation.x += (cursor.getCenteredY() * sensitivity);
 			rotation.y -= (cursor.getCenteredX() * sensitivity);
-			cursor.setPosition(Launcher.LAUNCHER.getEngine().getWindow().getWidth() / 2, Launcher.LAUNCHER.getEngine().getWindow().getHeight() / 2);
-			movingView = false;
 		}
 	}
 	
 	private void keyboard(Keyboard key)
 	{
-		if (key.isDownI('W'))
+		if (key.isDown(Key.ESCAPE) && movingView)
+		{
+			movingView = false;
+		}
+		
+		if (key.isDown(Key.W))
 		{
 			moveLocal(0, 0, -speed);
 		}
-		if (key.isDownI('S'))
+		if (key.isDown(Key.S))
 		{
 			moveLocal(0, 0, speed);
 		}
-		if (key.isDownI('D'))
+		if (key.isDown(Key.D))
 		{
 			moveLocal(speed, 0, 0);
 		}
-		if (key.isDownI('A'))
+		if (key.isDown(Key.A))
 		{
 			moveLocal(-speed, 0, 0);
 		}
-		if (key.isDownI(' '))
+		if (key.isDown(Key.SPACE))
 		{
 			position.y += speed;
 		}
@@ -134,7 +138,7 @@ public final class Camera3D implements Camera
 	@Override public Matrix4f getProjection(int width, int height)
 	{
 		Matrix4f projection = new Matrix4f();
-		projection.perspective(Math.toRadians(fov), (float) (width / height), znear, zfar);
+		projection.perspective(Math.toRadians(fov), (float) (width / height), zNear, zFar);
 		return projection;
 	}
 	

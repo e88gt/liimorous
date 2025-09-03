@@ -16,7 +16,7 @@ public class Image
 		IntBuffer dataBuffer = memCallocInt(3);
 		
 		stbi_set_flip_vertically_on_load(true);
-		long imageAddress = nstbi_load(memAddress(memUTF8(imagePath)), memAddress(dataBuffer), memAddress(dataBuffer) + 4, memAddress(dataBuffer) + 8, STBI_rgb_alpha);
+		long imageAddress = nstbi_load(memAddress(memUTF8(imagePath)), memAddress(dataBuffer), memAddress(dataBuffer) + Integer.BYTES, memAddress(dataBuffer) + (Integer.BYTES * 2), STBI_rgb_alpha);
 		
 		if (imageAddress == NULL)
 			throw new IOException(stbi_failure_reason() + "\nPath: '" + imagePath + "'");
