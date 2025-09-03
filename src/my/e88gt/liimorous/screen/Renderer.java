@@ -9,6 +9,7 @@ import org.joml.*;
 import org.lwjgl.opengl.*;
 
 import my.e88gt.liimorous.mob.*;
+import my.e88gt.liimorous.scene.*;
 import my.e88gt.liimorous.shader.*;
 
 public final class Renderer
@@ -71,6 +72,24 @@ public final class Renderer
 		
 		mob.getMesh().getVertexArray().bind();
 		glDrawElements(GL_TRIANGLES, mob.getMesh().getElementCount(), GL_UNSIGNED_INT, 0);
+	}
+	
+	public void render(Camera camera, Scene scene)
+	{
+		shader.use();
+		shader.useTexture(0);
+		
+		for (Mob mob : scene.getMobs())
+		{
+			mob.getTexture().bind();
+			
+			shader.updateProjectionMatrix(camera.getProjection(size.x, size.y));
+			shader.updateViewMatrix(camera.getViewMatrix());
+			shader.updateWorldMatrix(mob.getTransformation());
+			
+			mob.getMesh().getVertexArray().bind();
+			glDrawElements(GL_TRIANGLES, mob.getMesh().getElementCount(), GL_UNSIGNED_INT, 0);
+		}
 	}
 	
 	public void destroy()

@@ -5,6 +5,7 @@ import java.io.*;
 import org.joml.*;
 import org.joml.Math;
 
+import my.e88gt.liimorous.input.*;
 import my.e88gt.liimorous.mesh.*;
 import my.e88gt.liimorous.texture.*;
 
@@ -32,14 +33,26 @@ public final class TestMob implements Mob
 		mesh = Mesh.Preset.CUBE;
 	}
 	
-	public void update(double delta)
+	@Override public void input(Input input)
+	{
+		if(input instanceof Keyboard key)
+		{
+			if(key.isDown(Key.X))
+				position.x += 0.001F;
+			
+			if(key.isDown(Key.Z))
+				position.x -= 0.001F;
+		}
+	}
+	
+	@Override public void update(double delta)
 	{
 		rotation.x += delta * 60;
 		rotation.y += delta * 10;
 		rotation.z += delta * 100;
 	}
 	
-	public void destroy()
+	@Override public void destroy()
 	{
 		texture.delete();
 		mesh.destroy();

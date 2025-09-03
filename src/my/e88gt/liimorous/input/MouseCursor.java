@@ -3,19 +3,21 @@ package my.e88gt.liimorous.input;
 import static org.lwjgl.glfw.GLFW.*;
 
 import org.joml.*;
+import org.joml.Math;
 
 import my.e88gt.liimorous.screen.*;
 
 public final class MouseCursor implements Input
 {
 	private boolean moving, inWindow;
-	private final Vector2d position, centeredPosition;
+	private final Vector2d position, lastPosition, centeredPosition;
 	private final Window window;
 	
 	public MouseCursor(Window window)
 	{
 		this.window = window;
 		position = new Vector2d(0);
+		lastPosition = new Vector2d(0);
 		centeredPosition = new Vector2d(0);
 		
 		glfwSetCursorEnterCallback(window.getAddress(), this::enterCallback);
@@ -58,6 +60,16 @@ public final class MouseCursor implements Input
 		return position.y;
 	}
 	
+	public double getDeltaX()
+	{
+		return (position.x - lastPosition.x);
+	}
+	
+	public double getDeltaY()
+	{
+		return (position.y - lastPosition.y);
+	}
+	
 	public double getCenteredX()
 	{
 		return centeredPosition.x;
@@ -81,6 +93,8 @@ public final class MouseCursor implements Input
 	private void posCallback(long pWindow, double xp, double yp)
 	{
 		moving = true;
+		
+		lastPosition.set(position);
 		
 		centeredPosition.x = xp - (this.window.getWidth() / 2);
 		centeredPosition.y = (this.window.getHeight() / 2) - yp;
