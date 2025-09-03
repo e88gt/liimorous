@@ -9,6 +9,8 @@ public enum Key
 	D(GLFW_KEY_D),
 	A(GLFW_KEY_A),
 	
+	Q(GLFW_KEY_Q),
+	
 	X(GLFW_KEY_X),
 	Y(GLFW_KEY_Y),
 	Z(GLFW_KEY_Z),

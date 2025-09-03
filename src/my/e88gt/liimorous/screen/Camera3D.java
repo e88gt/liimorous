@@ -12,7 +12,7 @@ public final class Camera3D implements Camera
 	public static final float DEFAULT_ZFAR = 1000.0F;
 	public static final float DEFAULT_ZNEAR = 0.01F;
 	
-	private boolean movingView, affectUp;
+	private boolean movingView, affectUp, changeSpeed;
 	private float fov, zFar, zNear, speed, sensitivity;
 	private final Vector3f position, rotation;
 	
@@ -28,8 +28,8 @@ public final class Camera3D implements Camera
 		this.zNear = znear;
 		speed = 0.0005F;
 		sensitivity = 0.01F;
-		position = new Vector3f();
-		rotation = new Vector3f();
+		position = new Vector3f(0);
+		rotation = new Vector3f(0);
 	}
 	
 	public void input(Input input)
@@ -43,7 +43,7 @@ public final class Camera3D implements Camera
 		if (input instanceof MouseCursor cursor)
 			cursor(cursor);
 		
-		if (input instanceof MouseScroll scroll)
+		if (input instanceof MouseScroll scroll && scroll.isScrolling())
 			scroll(scroll);
 	}
 	
@@ -74,6 +74,8 @@ public final class Camera3D implements Camera
 			movingView = false;
 		}
 		
+		changeSpeed = key.isDown(Key.Q);
+		
 		if (key.isDown(Key.W))
 		{
 			moveLocal(0, 0, -speed);
@@ -102,8 +104,13 @@ public final class Camera3D implements Camera
 	
 	private void scroll(MouseScroll scroll)
 	{
-		if (scroll.isScrolling())
+		if(changeSpeed)
+			speed += (0.0001 * scroll.getScrollY());
+		
+		else
 			fov += scroll.getScrollY();
+		
+		System.out.println(speed);
 	}
 	
 	public void update(double delta)
