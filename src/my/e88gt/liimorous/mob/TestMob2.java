@@ -8,48 +8,37 @@ import org.joml.Math;
 import my.e88gt.liimorous.input.*;
 import my.e88gt.liimorous.mesh.*;
 import my.e88gt.liimorous.texture.*;
+import my.e88gt.liimorous.utils.*;
 
-public final class TestMob implements Mob
+public final class TestMob2 implements Mob
 {
+	private float speed;
 	private final Vector3f position, rotation, scale;
 	private final Texture texture;
 	private final Mesh mesh;
 	
-	public TestMob(boolean aa)
+	public TestMob2()
 	{
 		position = new Vector3f();
+		position.x = -0.6F;
 		rotation = new Vector3f();
-		scale = new Vector3f(1F);
+		scale = new Vector3f(0.5F);
 		
-		try
-		{
-			texture = new Texture(Texture.FOLDER_PATH + "tests/Test1.png", aa);
-		}
-		catch (IOException e)
-		{
+		try{
+			texture = new Texture(Texture.FOLDER_PATH + "tests/Test1.png", false);
+		}catch (IOException e){
 			throw new UncheckedIOException(e);
 		}
 		
-		mesh = Mesh.Preset.CUBE;
+		mesh = Mesh.Preset.PLANE;
 	}
 	
 	@Override public void input(Input input)
 	{
-		if(input instanceof Keyboard key)
-		{
-			if(key.isDown(Key.X))
-				position.x += 0.001F;
-			
-			if(key.isDown(Key.Z))
-				position.x -= 0.001F;
-		}
 	}
 	
 	@Override public void update(double delta)
 	{
-		rotation.x += delta * 60;
-		rotation.y += delta * 10;
-		rotation.z += delta * 100;
 	}
 	
 	@Override public void destroy()

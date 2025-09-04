@@ -13,6 +13,11 @@ import my.e88gt.liimorous.utils.*;
 public final class Engine
 {
 	/**
+	 * for single threading synchronization
+	 */
+	public static final Object LOCK = new Object();
+	
+	/**
 	 * if the game is running or not
 	 */
 	private boolean running;
@@ -62,7 +67,6 @@ public final class Engine
 		window = new Window("liimorous", 1280, 720, false);
 		
 		renderer = new Renderer();
-		renderer.clearColor(0.65F, 0.65F, 1);
 		
 		keyboard = new Keyboard(window);
 		click = new MouseClick(window);
@@ -166,6 +170,7 @@ public final class Engine
 		if (window.isResized())
 			renderer.viewport(window.getFbWidth(), window.getFbHeight());
 		
+		renderer.clearColor(0.65F, 0.65F, 1);
 		game.update(delta);
 	}
 	
@@ -194,21 +199,27 @@ public final class Engine
 	 */
 	private synchronized void start()
 	{
-		if (running)
-			return;
-		
-		running = true;
+		synchronized (Engine.LOCK)
+		{
+			if (running)
+				return;
+			
+			running = true;
+		}
 	}
 	
 	/**
 	 * stop the engine
 	 */
-	private synchronized void stop()
+	private void stop()
 	{
-		if (!running)
-			return;
-		
-		running = false;
+		synchronized (Engine.LOCK)
+		{
+			if (!running)
+				return;
+			
+			running = false;
+		}
 	}
 	
 	/**

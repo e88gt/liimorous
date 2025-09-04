@@ -1,7 +1,6 @@
 package my.e88gt.liimorous.screen;
 
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL43.*;
+import static org.lwjgl.opengl.GL46.*;
 
 import java.nio.*;
 
@@ -16,7 +15,6 @@ public final class Renderer
 {
 	private final Vector2i size = new Vector2i(Window.DEFAULT_WIDTH, Window.DEFAULT_HEIGHT);
 	private final Vector3f color = new Vector3f(0);
-	
 	private final CoreShader shader;
 	
 	public Renderer()

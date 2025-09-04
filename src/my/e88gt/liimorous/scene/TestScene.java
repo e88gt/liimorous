@@ -12,24 +12,20 @@ public final class TestScene implements Scene
 	public TestScene()
 	{
 		mobs = new ArrayList<>();
-		mobs.add(new TestMob(true));
-		mobs.add(new TestMob(false));
-		
-		mobs.get(0).getPosition().z = -1.5F;
-		mobs.get(1).getPosition().z = -1.5F;
-		
-		mobs.get(0).getPosition().x = +0.6F;
-		mobs.get(1).getPosition().x = -0.6F;
+		mobs.add(new TestMob1());
+		mobs.add(new TestMob2());
 	}
 	
 	@Override public void input(Input input)
 	{
-		mobs.get(1).input(input);
+		for (Mob mob : mobs)
+			mob.input(input);
 	}
 	
 	@Override public void update(double delta)
 	{
-		mobs.get(0).update(delta);
+		for (Mob mob : mobs)
+			mob.update(delta);
 	}
 	
 	@Override public void destroy()

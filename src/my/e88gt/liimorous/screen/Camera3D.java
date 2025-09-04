@@ -26,9 +26,13 @@ public final class Camera3D implements Camera
 		this.fov = fov;
 		this.zFar = zfar;
 		this.zNear = znear;
+		
 		speed = 0.0005F;
 		sensitivity = 0.01F;
+		
 		position = new Vector3f(0);
+		position.z = 1F;
+		
 		rotation = new Vector3f(0);
 	}
 	
@@ -62,7 +66,10 @@ public final class Camera3D implements Camera
 		if (movingView)
 		{
 			cursor.setPosition(Launcher.LAUNCHER.getEngine().getWindow().getWidth() / 2, Launcher.LAUNCHER.getEngine().getWindow().getHeight() / 2);
+			
 			rotation.x += (cursor.getCenteredY() * sensitivity);
+			rotation.x = Math.clamp(-90, 90, rotation.x);
+			
 			rotation.y -= (cursor.getCenteredX() * sensitivity);
 		}
 	}
@@ -104,7 +111,7 @@ public final class Camera3D implements Camera
 	
 	private void scroll(MouseScroll scroll)
 	{
-		if(changeSpeed)
+		if (changeSpeed)
 			speed += (0.0001 * scroll.getScrollY());
 		
 		else
