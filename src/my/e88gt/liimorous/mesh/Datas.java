@@ -59,46 +59,57 @@ final class Datas
 		cubeVertices.add(22, new Vertex(new Vector3f(+0.5F, -0.5F, +0.5F), new Vector2f(1, 1)));
 		cubeVertices.add(23, new Vertex(new Vector3f(-0.5F, -0.5F, +0.5F), new Vector2f(0, 1)));
 		
-		cubeIndices.add(0);
-		cubeIndices.add(1);
-		cubeIndices.add(2);
-		cubeIndices.add(2);
-		cubeIndices.add(3);
-		cubeIndices.add(0);
+		for (int i = 0; i < 6; i++)
+		{
+			final int base = i * 4;
+			cubeIndices.add(base + 0);
+			cubeIndices.add(base + 1);
+			cubeIndices.add(base + 2);
+			cubeIndices.add(base + 2);
+			cubeIndices.add(base + 3);
+			cubeIndices.add(base + 0);
+		}
 		
-		cubeIndices.add(4);
-		cubeIndices.add(5);
-		cubeIndices.add(6);
-		cubeIndices.add(6);
-		cubeIndices.add(7);
-		cubeIndices.add(4);
-		
-		cubeIndices.add(8);
-		cubeIndices.add(9);
-		cubeIndices.add(10);
-		cubeIndices.add(10);
-		cubeIndices.add(11);
-		cubeIndices.add(8);
-		
-		cubeIndices.add(12);
-		cubeIndices.add(13);
-		cubeIndices.add(14);
-		cubeIndices.add(14);
-		cubeIndices.add(15);
-		cubeIndices.add(12);
-		
-		cubeIndices.add(16);
-		cubeIndices.add(17);
-		cubeIndices.add(18);
-		cubeIndices.add(18);
-		cubeIndices.add(19);
-		cubeIndices.add(16);
-		
-		cubeIndices.add(20);
-		cubeIndices.add(21);
-		cubeIndices.add(22);
-		cubeIndices.add(22);
-		cubeIndices.add(23);
-		cubeIndices.add(20);
+//		cubeIndices.add(0);
+//		cubeIndices.add(1);
+//		cubeIndices.add(2);
+//		cubeIndices.add(2);
+//		cubeIndices.add(3);
+//		cubeIndices.add(0);
+//		
+//		cubeIndices.add(4);
+//		cubeIndices.add(5);
+//		cubeIndices.add(6);
+//		cubeIndices.add(6);
+//		cubeIndices.add(7);
+//		cubeIndices.add(4);
+//		
+//		cubeIndices.add(8);
+//		cubeIndices.add(9);
+//		cubeIndices.add(10);
+//		cubeIndices.add(10);
+//		cubeIndices.add(11);
+//		cubeIndices.add(8);
+//		
+//		cubeIndices.add(12);
+//		cubeIndices.add(13);
+//		cubeIndices.add(14);
+//		cubeIndices.add(14);
+//		cubeIndices.add(15);
+//		cubeIndices.add(12);
+//		
+//		cubeIndices.add(16);
+//		cubeIndices.add(17);
+//		cubeIndices.add(18);
+//		cubeIndices.add(18);
+//		cubeIndices.add(19);
+//		cubeIndices.add(16);
+//		
+//		cubeIndices.add(20);
+//		cubeIndices.add(21);
+//		cubeIndices.add(22);
+//		cubeIndices.add(22);
+//		cubeIndices.add(23);
+//		cubeIndices.add(20);
 	}
 }

@@ -8,14 +8,14 @@ import my.e88gt.liimorous.screen.*;
 
 public final class Keyboard implements Input
 {
-	private final ArrayList<Boolean> keys = new ArrayList<>(Key.LAST.getKey());
+	private final ArrayList<Boolean> keys = new ArrayList<>(Keys.LAST.getKey());
 	private final Window window;
 	
 	public Keyboard(Window window)
 	{
 		this.window = window;
 		
-		for (int i = 0; i < Key.LAST.getKey(); i++)
+		for (int i = 0; i < Keys.LAST.getKey(); i++)
 			keys.add(false);
 		
 		glfwSetKeyCallback(window.getAddress(), this::keyCallback);
@@ -23,7 +23,7 @@ public final class Keyboard implements Input
 	
 	private void keyCallback(long window, int key, int scancode, int action, int mods)
 	{
-		boolean isDown = action != Action.RELEASE.getAction();
+		boolean isDown = action != Actions.RELEASE.getAction();
 		
 		keys.set(key, isDown);
 	}
@@ -33,13 +33,8 @@ public final class Keyboard implements Input
 		return keys.get(i);
 	}
 	
-	public boolean isDown(Key key)
+	public boolean isDown(Keys key)
 	{
 		return keys.get(key.getKey());
-	}
-	
-	@Override public Window getWindow()
-	{
-		return window;
 	}
 }

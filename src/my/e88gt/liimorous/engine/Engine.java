@@ -13,7 +13,7 @@ import my.e88gt.liimorous.utils.*;
 public final class Engine
 {
 	/**
-	 * for single threading synchronization
+	 * for single threaded synchronization
 	 */
 	public static final Object LOCK = new Object();
 	
@@ -45,7 +45,7 @@ public final class Engine
 	/**
 	 * the mouse clicks
 	 */
-	private final MouseClick click;
+	private final MouseButton click;
 	
 	/**
 	 * the mouse cursor movements
@@ -65,11 +65,10 @@ public final class Engine
 	Engine()
 	{
 		window = new Window("liimorous", 1280, 720, false);
-		
 		renderer = new Renderer();
 		
 		keyboard = new Keyboard(window);
-		click = new MouseClick(window);
+		click = new MouseButton(window);
 		cursor = new MouseCursor(window);
 		scroll = new MouseScroll(window);
 		
@@ -87,7 +86,7 @@ public final class Engine
 		
 		start();
 		
-		while (running)
+		while (isRunning())
 		{
 			input();
 			if (shouldClose())
@@ -128,16 +127,6 @@ public final class Engine
 	}
 	
 	/**
-	 * gets the window the engine is using
-	 * 
-	 * @return the window
-	 */
-	public Window getWindow()
-	{
-		return window;
-	}
-	
-	/**
 	 * process the inputs like keyboard key pressed, mouse button clicks, mouse cursor movements and
 	 * position, etc
 	 * 
@@ -168,9 +157,9 @@ public final class Engine
 	private void update(double delta)
 	{
 		if (window.isResized())
-			renderer.viewport(window.getFbWidth(), window.getFbHeight());
+			renderer.setViewportSize(window.getFbWidth(), window.getFbHeight());
 		
-		renderer.clearColor(0.65F, 0.65F, 1);
+		renderer.setClearColor(0.65F, 0.65F, 1);
 		game.update(delta);
 	}
 	
@@ -197,7 +186,7 @@ public final class Engine
 	/**
 	 * start the engine
 	 */
-	private synchronized void start()
+	private void start()
 	{
 		synchronized (Engine.LOCK)
 		{

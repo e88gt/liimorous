@@ -9,20 +9,21 @@ import java.util.*;
 import org.joml.*;
 import org.lwjgl.system.*;
 
-public final class ShaderProgram
+public final class ShaderProgram implements ShaderComponent
 {
+	private static int current = -1;
 	private final int program;
-	private List<Shader> shaders = new ArrayList<>();
+	private List<ShaderModule> shaders = new ArrayList<>();
 	
 	public ShaderProgram()
 	{
 		program = glCreateProgram();
 	}
 	
-	public void attachShader(Shader shader)
+	public void attachShader(ShaderModule shader)
 	{
 		shaders.add(shader);
-		glAttachShader(program, shader.getHandle());
+		glAttachShader(program, shader.getShader());
 	}
 	
 	public void link()
@@ -35,22 +36,37 @@ public final class ShaderProgram
 	
 	public void use()
 	{
+		if (isCurrent())
+			return;
+		
 		glUseProgram(program);
+		
+		setCurrent();
 	}
 	
-	public void uniformInt(int location, int value)
+	private void setCurrent()
+	{
+		current = program;
+	}
+	
+	private boolean isCurrent()
+	{
+		return (current == program);
+	}
+	
+	public void setUniformInt(int location, int value)
 	{
 		use();
 		glUniform1i(location, value);
 	}
 	
-	public void uniformVec3(int location, float r, float g, float b)
+	public void setUniformVec3(int location, float r, float g, float b)
 	{
 		use();
 		glUniform3f(location, r, g, b);
 	}
 	
-	public void uniformMat4(int location, Matrix4f matrix)
+	public void setUniformMat4(int location, Matrix4f matrix)
 	{
 		use();
 		FloatBuffer buffer = MemoryUtil.memCallocFloat(16);
@@ -59,12 +75,12 @@ public final class ShaderProgram
 		MemoryUtil.memFree(buffer);
 	}
 	
-	public void delete()
+	@Override public void delete()
 	{
 		glDeleteProgram(program);
 	}
 	
-	public int getID()
+	public int getProgram()
 	{
 		return program;
 	}

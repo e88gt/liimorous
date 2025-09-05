@@ -3,7 +3,6 @@ package my.e88gt.liimorous.screen;
 import org.joml.*;
 import org.joml.Math;
 
-import my.e88gt.liimorous.engine.*;
 import my.e88gt.liimorous.input.*;
 
 public final class Camera3D implements Camera
@@ -41,7 +40,7 @@ public final class Camera3D implements Camera
 		if (input instanceof Keyboard key)
 			keyboard(key);
 		
-		if (input instanceof MouseClick click)
+		if (input instanceof MouseButton click)
 			click(click);
 		
 		if (input instanceof MouseCursor cursor)
@@ -51,9 +50,9 @@ public final class Camera3D implements Camera
 			scroll(scroll);
 	}
 	
-	private void click(MouseClick click)
+	private void click(MouseButton click)
 	{
-		if (click.isDown(MouseButton.LEFT))
+		if (click.isDown(MouseButtons.LEFT))
 		{
 			movingView = true;
 		}
@@ -65,8 +64,6 @@ public final class Camera3D implements Camera
 		
 		if (movingView)
 		{
-			cursor.setPosition(Launcher.LAUNCHER.getEngine().getWindow().getWidth() / 2, Launcher.LAUNCHER.getEngine().getWindow().getHeight() / 2);
-			
 			rotation.x += (cursor.getCenteredY() * sensitivity);
 			rotation.x = Math.clamp(-90, 90, rotation.x);
 			
@@ -76,34 +73,34 @@ public final class Camera3D implements Camera
 	
 	private void keyboard(Keyboard key)
 	{
-		if (key.isDown(Key.ESCAPE) && movingView)
+		if (key.isDown(Keys.ESCAPE) && movingView)
 		{
 			movingView = false;
 		}
 		
-		changeSpeed = key.isDown(Key.Q);
+		changeSpeed = key.isDown(Keys.Q);
 		
-		if (key.isDown(Key.W))
+		if (key.isDown(Keys.W))
 		{
 			moveLocal(0, 0, -speed);
 		}
-		if (key.isDown(Key.S))
+		if (key.isDown(Keys.S))
 		{
 			moveLocal(0, 0, speed);
 		}
-		if (key.isDown(Key.D))
+		if (key.isDown(Keys.D))
 		{
 			moveLocal(speed, 0, 0);
 		}
-		if (key.isDown(Key.A))
+		if (key.isDown(Keys.A))
 		{
 			moveLocal(-speed, 0, 0);
 		}
-		if (key.isDown(Key.SPACE))
+		if (key.isDown(Keys.SPACE))
 		{
 			position.y += speed;
 		}
-		if (key.isDown(Key.TAB))
+		if (key.isDown(Keys.TAB))
 		{
 			position.y -= speed;
 		}

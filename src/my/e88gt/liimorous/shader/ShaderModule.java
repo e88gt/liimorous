@@ -3,13 +3,13 @@ package my.e88gt.liimorous.shader;
 import static org.lwjgl.opengl.GL46.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-public final class Shader
+public final class ShaderModule implements ShaderComponent
 {
 	public static final String FOLDER_PATH = "res/my/e88gt/liimorous/shaders/";
 	
 	private final int shader;
 	
-	public Shader(ShaderType type)
+	public ShaderModule(ShaderType type)
 	{
 		shader = glCreateShader(type.getType());
 		
@@ -30,12 +30,12 @@ public final class Shader
 			throw new IllegalStateException(glGetShaderInfoLog(shader));
 	}
 	
-	public void delete()
+	@Override public void delete()
 	{
 		glDeleteShader(shader);
 	}
 	
-	public int getHandle()
+	public int getShader()
 	{
 		return shader;
 	}

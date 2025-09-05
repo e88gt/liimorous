@@ -1,10 +1,11 @@
 package my.e88gt.liimorous.screen;
 
-import my.e88gt.liimorous.graphics.*;
+import my.e88gt.liimorous.material.*;
+import my.e88gt.liimorous.mesh.*;
 
 public interface Renderable
 {
-	VertexArray getVertexArray();
+	Material material();
 	
-	int getElementCount();
+	Mesh mesh();
 }

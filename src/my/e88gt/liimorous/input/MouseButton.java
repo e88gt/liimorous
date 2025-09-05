@@ -2,22 +2,39 @@ package my.e88gt.liimorous.input;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public enum MouseButton
+import java.util.*;
+
+import my.e88gt.liimorous.screen.*;
+
+public final class MouseButton implements Input
 {
-	LEFT(GLFW_MOUSE_BUTTON_LEFT),
-	MIDDLE(GLFW_MOUSE_BUTTON_MIDDLE),
-	RIGHT(GLFW_MOUSE_BUTTON_RIGHT),
-	LAST(GLFW_MOUSE_BUTTON_LAST);
+	private final ArrayList<Boolean> buttons = new ArrayList<>(MouseButtons.LAST.getButton());
+	private final Window window;
 	
-	private final int button;
-	
-	private MouseButton(int button)
+	public MouseButton(Window window)
 	{
-		this.button = button;
+		this.window = window;
+		
+		for (int i = 0; i < MouseButtons.LAST.getButton(); i++)
+			buttons.add(false);
+		
+		glfwSetMouseButtonCallback(window.getAddress(), this::clickCallback);
 	}
 	
-	public int getButton()
+	public boolean isDown(MouseButtons button)
 	{
-		return button;
+		return buttons.get(button.getButton());
+	}
+	
+	public boolean isDownI(int i)
+	{
+		return buttons.get(i);
+	}
+	
+	private void clickCallback(long window, int button, int action, int mods)
+	{
+		boolean isDown = action != Actions.RELEASE.getAction();
+		
+		buttons.set(button, isDown);
 	}
 }

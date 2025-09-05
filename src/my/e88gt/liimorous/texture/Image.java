@@ -6,7 +6,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import java.io.*;
 import java.nio.*;
 
-public class Image
+public final class Image
 {
 	private final int width, height;
 	private final ByteBuffer pixels;

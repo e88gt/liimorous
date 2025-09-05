@@ -68,11 +68,6 @@ public final class MouseCursor implements Input
 		return centeredPosition.y;
 	}
 	
-	@Override public Window getWindow()
-	{
-		return window;
-	}
-	
 	private void enterCallback(long window, boolean enter)
 	{
 		inWindow = enter;

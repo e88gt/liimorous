@@ -2,7 +2,7 @@ package my.e88gt.liimorous.input;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public enum Key
+public enum Keys
 {
 	W(GLFW_KEY_W),
 	S(GLFW_KEY_S),
@@ -22,7 +22,7 @@ public enum Key
 	
 	private final int key;
 	
-	private Key(int key)
+	private Keys(int key)
 	{
 		this.key = key;
 	}

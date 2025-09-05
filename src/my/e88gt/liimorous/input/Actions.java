@@ -2,7 +2,7 @@ package my.e88gt.liimorous.input;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public enum Action
+public enum Actions
 {
 	PRESS(GLFW_PRESS),
 	REPEAT(GLFW_REPEAT),
@@ -10,7 +10,7 @@ public enum Action
 	
 	private final int action;
 	
-	private Action(int value)
+	private Actions(int value)
 	{
 		action = value;
 	}

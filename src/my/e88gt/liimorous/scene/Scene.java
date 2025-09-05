@@ -3,7 +3,7 @@ package my.e88gt.liimorous.scene;
 import java.util.*;
 
 import my.e88gt.liimorous.input.*;
-import my.e88gt.liimorous.mob.*;
+import my.e88gt.liimorous.screen.*;
 
 public interface Scene
 {
@@ -13,5 +13,5 @@ public interface Scene
 	
 	void destroy();
 	
-	List<Mob> getMobs();
+	List<Renderable> getRenderables();
 }

@@ -39,11 +39,6 @@ public final class MouseScroll implements Input
 		return scroll.y;
 	}
 	
-	@Override public Window getWindow()
-	{
-		return window;
-	}
-	
 	private void scrollCallback(long window, double xs, double ys)
 	{
 		scrolling = true;

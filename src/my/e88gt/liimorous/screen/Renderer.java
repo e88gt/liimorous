@@ -7,15 +7,12 @@ import java.nio.*;
 import org.joml.*;
 import org.lwjgl.opengl.*;
 
-import my.e88gt.liimorous.mob.*;
 import my.e88gt.liimorous.scene.*;
-import my.e88gt.liimorous.shader.*;
 
 public final class Renderer
 {
 	private final Vector2i size = new Vector2i(Window.DEFAULT_WIDTH, Window.DEFAULT_HEIGHT);
 	private final Vector3f color = new Vector3f(0);
-	private final CoreShader shader;
 	
 	public Renderer()
 	{
@@ -30,11 +27,9 @@ public final class Renderer
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
-		
-		shader = new CoreShader(CoreShader.FOLDER_PATH + "VertexShader.glsl", CoreShader.FOLDER_PATH + "FragmentShader.glsl");
 	}
 	
-	public void viewport(int width, int height)
+	public void setViewportSize(int width, int height)
 	{
 		if (size.x == width && size.y == height)
 			return;
@@ -48,7 +43,7 @@ public final class Renderer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	}
 	
-	public void clearColor(float r, float g, float b)
+	public void setClearColor(float r, float g, float b)
 	{
 		if (color.x == r && color.y == g && color.z == b)
 			return;
@@ -57,42 +52,18 @@ public final class Renderer
 		glClearColor(r, g, b, 1);
 	}
 	
-	public void render(Camera camera, Mob mob)
-	{
-		shader.use();
-		
-		shader.useTexture(0);
-		mob.getTexture().bind();
-		
-		shader.updateProjectionMatrix(camera.getProjection(size.x, size.y));
-		shader.updateViewMatrix(camera.getViewMatrix());
-		shader.updateWorldMatrix(mob.getTransformation());
-		
-		mob.getMesh().getVertexArray().bind();
-		glDrawElements(GL_TRIANGLES, mob.getMesh().getElementCount(), GL_UNSIGNED_INT, 0);
-	}
-	
 	public void render(Camera camera, Scene scene)
 	{
-		shader.use();
-		shader.useTexture(0);
-		
-		for (Mob mob : scene.getMobs())
+		for (Renderable object : scene.getRenderables())
 		{
-			mob.getTexture().bind();
-			
-			shader.updateProjectionMatrix(camera.getProjection(size.x, size.y));
-			shader.updateViewMatrix(camera.getViewMatrix());
-			shader.updateWorldMatrix(mob.getTransformation());
-			
-			mob.getMesh().getVertexArray().bind();
-			glDrawElements(GL_TRIANGLES, mob.getMesh().getElementCount(), GL_UNSIGNED_INT, 0);
+			object.material().shaderProgram().use();
+			object.mesh().vao().bind();
+			glDrawElements(GL_TRIANGLES, object.mesh().elementCount(), GL_UNSIGNED_INT, 0);
 		}
 	}
 	
 	public void destroy()
 	{
-		shader.delete();
 		GL.destroy();
 	}
 	
