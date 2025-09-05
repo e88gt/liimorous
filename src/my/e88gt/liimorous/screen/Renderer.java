@@ -56,9 +56,9 @@ public final class Renderer
 	{
 		for (Renderable object : scene.getRenderables())
 		{
-			object.material().shaderProgram().use();
-			object.mesh().vao().bind();
-			glDrawElements(GL_TRIANGLES, object.mesh().elementCount(), GL_UNSIGNED_INT, 0);
+			object.getMaterial().getShaderProgram().use();
+			object.getMesh().getVertexArray().bind();
+			glDrawElements(GL_TRIANGLES, object.getMesh().getElementCount(), GL_UNSIGNED_INT, 0);
 		}
 	}
 	

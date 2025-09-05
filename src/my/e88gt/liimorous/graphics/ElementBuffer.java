@@ -8,7 +8,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import java.nio.*;
 import java.util.*;
 
-public final class ElementBuffer
+public final class ElementBuffer implements GraphicComponent
 {
 	private final int ebo;
 	
@@ -32,12 +32,17 @@ public final class ElementBuffer
 		memFree(buffer);
 	}
 	
-	public void delete()
+	@Override public void bind()
+	{
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	}
+	
+	@Override public void delete()
 	{
 		glDeleteBuffers(ebo);
 	}
 	
-	public int getID()
+	@Override public int getHandle()
 	{
 		return ebo;
 	}

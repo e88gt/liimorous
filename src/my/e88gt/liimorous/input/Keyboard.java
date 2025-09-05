@@ -23,8 +23,7 @@ public final class Keyboard implements Input
 	
 	private void keyCallback(long window, int key, int scancode, int action, int mods)
 	{
-		boolean isDown = action != Actions.RELEASE.getAction();
-		
+		final boolean isDown = action != Actions.RELEASE.getAction();
 		keys.set(key, isDown);
 	}
 	

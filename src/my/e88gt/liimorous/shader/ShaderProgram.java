@@ -11,7 +11,6 @@ import org.lwjgl.system.*;
 
 public final class ShaderProgram implements ShaderComponent
 {
-	private static int current = -1;
 	private final int program;
 	private List<ShaderModule> shaders = new ArrayList<>();
 	
@@ -23,7 +22,7 @@ public final class ShaderProgram implements ShaderComponent
 	public void attachShader(ShaderModule shader)
 	{
 		shaders.add(shader);
-		glAttachShader(program, shader.getShader());
+		glAttachShader(program, shader.getHandle());
 	}
 	
 	public void link()
@@ -36,22 +35,7 @@ public final class ShaderProgram implements ShaderComponent
 	
 	public void use()
 	{
-		if (isCurrent())
-			return;
-		
 		glUseProgram(program);
-		
-		setCurrent();
-	}
-	
-	private void setCurrent()
-	{
-		current = program;
-	}
-	
-	private boolean isCurrent()
-	{
-		return (current == program);
 	}
 	
 	public void setUniformInt(int location, int value)
@@ -80,7 +64,7 @@ public final class ShaderProgram implements ShaderComponent
 		glDeleteProgram(program);
 	}
 	
-	public int getProgram()
+	@Override public int getHandle()
 	{
 		return program;
 	}

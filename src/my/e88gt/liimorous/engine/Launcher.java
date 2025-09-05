@@ -1,14 +1,12 @@
 package my.e88gt.liimorous.engine;
 
 /**
- * launcher enum, singleton enum that
- * launches whatever the application is
+ * launcher enum, singleton enum that launches whatever the application is
  */
-public enum Launcher
+enum Launcher
 {
 	/**
-	 * this is the only instance of launcher
-	 * dont access it unless you really need to 
+	 * this is the only instance of launcher dont access it unless you really need to
 	 */
 	LAUNCHER;
 	
@@ -34,22 +32,8 @@ public enum Launcher
 	}
 	
 	/**
-	 * gets the engine the launcher launched
-	 * 
-	 * @return the engine
-	 */
-	public Engine getEngine()
-	{
-		return engine;
-	}
-	
-	/**
-	 * typical java main method.
-	 * the only method that can be static
-	 * 
-	 * @param arguments
-	 * the command line arguments,
-	 * which is not needed
+	 * typical java main method. the only method that can be static
+	 * @param arguments the command line arguments, which is not needed
 	 */
 	public static void main(String... arguments)
 	{

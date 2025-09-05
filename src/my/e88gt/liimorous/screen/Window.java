@@ -13,14 +13,12 @@ import org.lwjgl.glfw.*;
 public final class Window
 {
 	/**
-	 * the default width for window when the window is created
-	 * using the {@link #Window()} constructor
+	 * the default width for window when the window is created using the {@link #Window()} constructor
 	 */
 	public static final int DEFAULT_WIDTH = 1280;
 	
 	/**
-	 * the default height for window when the window is created
-	 * using the {@link #Window()} constructor
+	 * the default height for window when the window is created using the {@link #Window()} constructor
 	 */
 	public static final int DEFAULT_HEIGHT = 720;
 	
@@ -45,8 +43,8 @@ public final class Window
 	private final long window;
 	
 	/**
-	 * window constructor that calls the {@link #Window(String, int, int, boolean)}
-	 * constructor using the default values:<br>
+	 * window constructor that calls the {@link #Window(String, int, int, boolean)} constructor using
+	 * the default values:<br>
 	 * - {@link #width} = {@link #DEFAULT_WIDTH}<br>
 	 * - {@link #height} = {@link #DEFAULT_HEIGHT}<br>
 	 * <br>
@@ -59,19 +57,19 @@ public final class Window
 	/**
 	 * creates a window using the parameters given
 	 * 
-	 * @param title the title of the window<br>
-	 * <br>
+	 * @param title  the title of the window<br>
+	 *               <br>
 	 * 
-	 * @param width the width of the window<br>
-	 * if the width is less than 2 then the window will automatically be maximized<br>
-	 * <br>
+	 * @param width  the width of the window<br>
+	 *               if the width is less than 2 then the window will automatically be maximized<br>
+	 *               <br>
 	 * 
 	 * @param height the height of the window<br>
-	 * if the heightis less than 2 then the window will automatically be maximized<br>
-	 * <br>
+	 *               if the heightis less than 2 then the window will automatically be maximized<br>
+	 *               <br>
 	 * 
-	 * @param vsync whether we want to use vsync or not<br>
-	 * <br>
+	 * @param vsync  whether we want to use vsync or not<br>
+	 *               <br>
 	 */
 	public Window(String title, int width, int height, boolean vsync)
 	{
@@ -80,19 +78,18 @@ public final class Window
 		this.width = Math.max(width, 1);
 		this.height = Math.max(height, 1);
 		
-		windowHints();
+		setWindowHints();
 		
 		window = createWindow(title);
 		
-		windowCallbacks();
+		setWindowCallbacks();
 		centerWindow();
 		makeContext(vsync);
 	}
 	
 	/**
-	 * processes all the window events (events
-	 * such as keyboard key presses, mouse button
-	 * clicks, etc) retrieved by the window
+	 * processes all the window events (events such as keyboard key presses, mouse button clicks, etc)
+	 * retrieved by the window
 	 */
 	public void pollEvents()
 	{
@@ -100,9 +97,8 @@ public final class Window
 	}
 	
 	/**
-	 * similar to {@link #waitEvents()} but {@link #timeEvents(double)}
-	 * will process events when there is at least 1 events OR if it has
-	 * reached the time specified
+	 * similar to {@link #waitEvents()} but {@link #timeEvents(double)} will process events when there
+	 * is at least 1 events OR if it has reached the time specified
 	 * 
 	 * @param seconds the time specified
 	 */
@@ -112,11 +108,9 @@ public final class Window
 	}
 	
 	/**
-	 * processes events like {@link #pollEvents()} but unlike
-	 * {@link #pollEvents()}, {@link #waitEvents()} actually
-	 * waits until at least 1 event is retrieved by the window
-	 * and it will behave like {@link #pollEvents()} if there
-	 * are more than 1 event is queued
+	 * processes events like {@link #pollEvents()} but unlike {@link #pollEvents()},
+	 * {@link #waitEvents()} actually waits until at least 1 event is retrieved by the window and it
+	 * will behave like {@link #pollEvents()} if there are more than 1 event is queued
 	 */
 	public void waitEvents()
 	{
@@ -124,8 +118,7 @@ public final class Window
 	}
 	
 	/**
-	 * the window is double buffered and this
-	 * will swap the two buffers of the window
+	 * the window is double buffered and this will swap the two buffers of the window
 	 */
 	public void swapBuffers()
 	{
@@ -133,8 +126,7 @@ public final class Window
 	}
 	
 	/**
-	 * once done using the
-	 * window, you may destroy it
+	 * once done using the window, you may destroy it
 	 */
 	public void destroy()
 	{
@@ -145,36 +137,26 @@ public final class Window
 	}
 	
 	/**
-	 * checks whether the X button on the window
-	 * is clicked, this is one of the event
-	 * processed by {@link #pollEvents()}
+	 * checks whether the X button on the window is clicked, this is one of the event processed by
+	 * {@link #pollEvents()}
 	 * 
 	 * @return whether the X button on the window has been clicked
 	 */
-	public boolean shouldClose()
+	public boolean isCloseRequested()
 	{
 		return glfwWindowShouldClose(window);
 	}
 	
 	/**
-	 * sets whether the X button on window is clicked
-	 * @param should whether the window should close or not
-	 */
-	public void setShouldClose(boolean should)
-	{
-		glfwSetWindowShouldClose(window, should);
-	}
-	
-	/**
 	 * checks if the window is resized or not
 	 * 
-	 * @return
-	 * true if the window is resized<br>
-	 * false if the window was not resized<br>
+	 * @return true if the window is resized<br>
+	 *         false if the window was not resized<br>
 	 */
 	public boolean isResized()
 	{
-		if(resized) {
+		if (resized)
+		{
 			resized = false;
 			return true;
 		}
@@ -184,6 +166,7 @@ public final class Window
 	
 	/**
 	 * gets the width of the window
+	 * 
 	 * @return (int) width of the window
 	 */
 	public int getWidth()
@@ -193,6 +176,7 @@ public final class Window
 	
 	/**
 	 * gets the height of the window
+	 * 
 	 * @return (int) height of the window
 	 */
 	public int getHeight()
@@ -222,6 +206,7 @@ public final class Window
 	
 	/**
 	 * gets the address of the window in long
+	 * 
 	 * @return (long) the address of the window
 	 */
 	public long getAddress()
@@ -243,8 +228,10 @@ public final class Window
 	/**
 	 * the error callback
 	 * 
-	 * @param code the error code<br><br>
-	 * @param description the description of the error<br><br>
+	 * @param code        the error code<br>
+	 *                    <br>
+	 * @param description the description of the error<br>
+	 *                    <br>
 	 * @throws IllegalStateException when an unexpected error occurs
 	 */
 	private void errorCallback(int code, long description) throws IllegalStateException
@@ -255,7 +242,7 @@ public final class Window
 	/**
 	 * sets the window hints before creating the window
 	 */
-	private void windowHints()
+	private void setWindowHints()
 	{
 		glfwDefaultWindowHints();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -277,9 +264,12 @@ public final class Window
 	/**
 	 * the private method that actually creates the window
 	 * 
-	 * @param title the title of the window, that can be null<br><br>
-	 * @return the address of the window<br><br>
-	 * @throws IllegalStateException if the {@link #window} is {@link MemoryUtil#NULL}<br><br>
+	 * @param title the title of the window, that can be null<br>
+	 *              <br>
+	 * @return the address of the window<br>
+	 *         <br>
+	 * @throws IllegalStateException if the {@link #window} is {@link MemoryUtil#NULL}<br>
+	 *                               <br>
 	 */
 	private long createWindow(String title) throws IllegalStateException
 	{
@@ -294,7 +284,7 @@ public final class Window
 	/**
 	 * sets the callbacks for the window
 	 */
-	private void windowCallbacks()
+	private void setWindowCallbacks()
 	{
 		glfwSetWindowSizeCallback(window, this::sizeCallback);
 		glfwSetFramebufferSizeCallback(window, this::fbSizeCallback);
@@ -303,9 +293,12 @@ public final class Window
 	/**
 	 * the window size callback
 	 * 
-	 * @param window the address of the window<br><br>
-	 * @param width the width of the window<br><br>
-	 * @param height the height of the window<br><br>
+	 * @param window the address of the window<br>
+	 *               <br>
+	 * @param width  the width of the window<br>
+	 *               <br>
+	 * @param height the height of the window<br>
+	 *               <br>
 	 */
 	private void sizeCallback(long window, int width, int height)
 	{
@@ -318,9 +311,12 @@ public final class Window
 	/**
 	 * the frame buffer size callback
 	 * 
-	 * @param window the address of the window<br><br>
-	 * @param width the width of frame buffer<br><br>
-	 * @param height the height of frame buffer<br><br>
+	 * @param window the address of the window<br>
+	 *               <br>
+	 * @param width  the width of frame buffer<br>
+	 *               <br>
+	 * @param height the height of frame buffer<br>
+	 *               <br>
 	 */
 	private void fbSizeCallback(long window, int width, int height)
 	{
@@ -329,10 +325,8 @@ public final class Window
 	}
 	
 	/**
-	 * centers the window, but if the width
-	 * or the height of the window
-	 * is less than 2 then it will not center
-	 * the window
+	 * centers the window, but if the width or the height of the window is less than 2 then it will not
+	 * center the window
 	 */
 	private void centerWindow()
 	{

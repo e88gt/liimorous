@@ -52,6 +52,9 @@ public final class Engine
 	 */
 	private final MouseCursor cursor;
 	
+	/**
+	 * the mouse scrolling inputs
+	 */
 	private final MouseScroll scroll;
 	
 	/**
@@ -89,7 +92,7 @@ public final class Engine
 		while (isRunning())
 		{
 			input();
-			if (shouldClose())
+			if (isEnding())
 				stop();
 			
 			final double currentTime = time.getSystemNano();
@@ -111,7 +114,7 @@ public final class Engine
 	 * @return true if it is still running<br>
 	 *         false if it has stopped<br>
 	 */
-	public boolean isRunning()
+	private boolean isRunning()
 	{
 		return running;
 	}
@@ -174,7 +177,7 @@ public final class Engine
 	}
 	
 	/**
-	 * cleanup operation, freeing allocated memories
+	 * cleanup operation, freeing resources allocated
 	 */
 	private void destroy()
 	{
@@ -184,7 +187,7 @@ public final class Engine
 	}
 	
 	/**
-	 * start the engine
+	 * starts the engine
 	 */
 	private void start()
 	{
@@ -198,7 +201,7 @@ public final class Engine
 	}
 	
 	/**
-	 * stop the engine
+	 * stops the engine
 	 */
 	private void stop()
 	{
@@ -217,8 +220,8 @@ public final class Engine
 	 * @return true if it should close<br>
 	 *         false if it is running<br>
 	 */
-	private boolean shouldClose()
+	private boolean isEnding()
 	{
-		return window.shouldClose();
+		return window.isCloseRequested();
 	}
 }

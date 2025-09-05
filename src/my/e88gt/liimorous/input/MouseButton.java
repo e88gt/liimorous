@@ -26,7 +26,7 @@ public final class MouseButton implements Input
 		return buttons.get(button.getButton());
 	}
 	
-	public boolean isDownI(int i)
+	public boolean isDown(int i)
 	{
 		return buttons.get(i);
 	}

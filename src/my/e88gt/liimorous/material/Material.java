@@ -16,7 +16,7 @@ public final class Material
 		shaderProgram.delete();
 	}
 	
-	public ShaderProgram shaderProgram()
+	public ShaderProgram getShaderProgram()
 	{
 		return shaderProgram;
 	}

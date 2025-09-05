@@ -5,7 +5,7 @@ import static org.lwjgl.opengl.GL30.*;
 import static org.lwjgl.opengl.GL45.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-public final class VertexArray
+public final class VertexArray implements GraphicComponent
 {
 	private final int vao;
 	
@@ -19,12 +19,12 @@ public final class VertexArray
 	
 	public void vertex(VertexBuffer vbo, int stride)
 	{
-		glVertexArrayVertexBuffer(vao, 0, vbo.getID(), 0, stride);
+		glVertexArrayVertexBuffer(vao, 0, vbo.getHandle(), 0, stride);
 	}
 	
 	public void element(ElementBuffer ebo)
 	{
-		glVertexArrayElementBuffer(vao, ebo.getID());
+		glVertexArrayElementBuffer(vao, ebo.getHandle());
 	}
 	
 	public void attribute(int location, int size, int offset)
@@ -34,13 +34,18 @@ public final class VertexArray
 		glVertexArrayAttribBinding(vao, location, 0);
 	}
 	
-	public void bind()
+	@Override public void bind()
 	{
 		glBindVertexArray(vao);
 	}
 	
-	public void delete()
+	@Override public void delete()
 	{
 		glDeleteVertexArrays(vao);
+	}
+	
+	@Override public int getHandle()
+	{
+		return vao;
 	}
 }

@@ -17,7 +17,7 @@ public final class ShaderModule implements ShaderComponent
 			throw new IllegalStateException("Failed to create " + type + " shader");
 	}
 	
-	public void shaderSource(String source)
+	public void setShaderSource(String source)
 	{
 		glShaderSource(shader, source);
 	}
@@ -35,7 +35,7 @@ public final class ShaderModule implements ShaderComponent
 		glDeleteShader(shader);
 	}
 	
-	public int getShader()
+	@Override public int getHandle()
 	{
 		return shader;
 	}

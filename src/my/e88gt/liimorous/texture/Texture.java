@@ -10,7 +10,6 @@ public final class Texture
 	public static final String FOLDER_PATH = "res/my/e88gt/liimorous/textures/";
 	public static final String TEST_PATH = FOLDER_PATH + "tests/";
 	
-	private static int currentlyBounded;
 	private final int texture;
 	
 	public Texture(Image image, boolean aa)
@@ -37,22 +36,7 @@ public final class Texture
 	
 	public void bind()
 	{
-		if (isBounded())
-			return;
-		
 		glBindTextureUnit(0, texture);
-		
-		updateBinding();
-	}
-	
-	private boolean isBounded()
-	{
-		return (texture == currentlyBounded);
-	}
-	
-	private void updateBinding()
-	{
-		currentlyBounded = texture;
 	}
 	
 	public void delete()

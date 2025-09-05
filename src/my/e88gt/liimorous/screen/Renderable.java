@@ -5,7 +5,7 @@ import my.e88gt.liimorous.mesh.*;
 
 public interface Renderable
 {
-	Material material();
+	Material getMaterial();
 	
-	Mesh mesh();
+	Mesh getMesh();
 }

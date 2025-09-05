@@ -35,12 +35,12 @@ public final class Mesh
 		vao.delete();
 	}
 	
-	public VertexArray vao()
+	public VertexArray getVertexArray()
 	{
 		return vao;
 	}
 	
-	public int elementCount()
+	public int getElementCount()
 	{
 		return elementCount;
 	}

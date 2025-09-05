@@ -10,7 +10,7 @@ import java.util.*;
 
 import my.e88gt.liimorous.mesh.*;
 
-public final class VertexBuffer
+public final class VertexBuffer implements GraphicComponent
 {
 	private final int vbo;
 	
@@ -31,6 +31,7 @@ public final class VertexBuffer
 			buffer.put(vertices.get(i).getPosition().x);
 			buffer.put(vertices.get(i).getPosition().y);
 			buffer.put(vertices.get(i).getPosition().z);
+			
 			buffer.put(vertices.get(i).getUV().x);
 			buffer.put(vertices.get(i).getUV().y);
 		}
@@ -40,12 +41,17 @@ public final class VertexBuffer
 		memFree(buffer);
 	}
 	
-	public void delete()
+	@Override public void bind()
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	}
+	
+	@Override public void delete()
 	{
 		glDeleteBuffers(vbo);
 	}
 	
-	public int getID()
+	@Override public int getHandle()
 	{
 		return vbo;
 	}
